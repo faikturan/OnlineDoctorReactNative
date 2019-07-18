@@ -26,11 +26,8 @@ class Home extends Component {
                     elevation: 1, marginTop: Platform.OS == 'android' ? 30 : null
                     }}>
                       <Icon name="ios-chatboxes" size={24} />
-                      <Text style={{ fontSize: 22, fontWeight: '500' }}>
-                          Customer Support
-                      </Text>
-                      <Text style={{ fontSize: 22, fontWeight: '500' }}>
-                          Online Doctor
+                      <Text style={{ fontSize: 22, fontWeight: '500', paddingLeft: 100 }}>
+                          Home
                       </Text>
                   </View>
               </View>
