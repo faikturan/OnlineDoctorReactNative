@@ -24,6 +24,7 @@ class Profile extends Component {
               </View>
               <View style={{ paddingHorizontal: 20, marginTop: 20, flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'space-between'}}>
                 <ProfileItem width={width}
+                  source="{require('../../../assets/person-icon.png')}" 
                   name="Account" 
                 />
                 <ProfileItem width={width}

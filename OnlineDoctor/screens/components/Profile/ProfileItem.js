@@ -9,9 +9,9 @@ class ProfileItem extends Component {
         <View style= {{ flex: 1 }}>
           <Image
             style={{ flex: 1, width: null, height: null, resizeMode: 'cover'}}
-            source={ require('../../../assets/person-icon.png')} />
+            {...this.props.source} />
         </View>
-        <View style={{ flex:1, alignItems:'flex-start', paddingLeft: 10, justifyContent: 'space-evenly' }}>
+        <View style={{ flex:1, alignItems:'flex-start', paddingLeft: 15, justifyContent: 'space-evenly' }}>
           <Text style={{ fontSize: 14}}>
             {this.props.name}
           </Text>

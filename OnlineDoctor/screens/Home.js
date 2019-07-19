@@ -22,11 +22,9 @@ class Home extends Component {
       <SafeAreaView style={{ flex: 1 }}>
           <View style={{ flex: 2/3, backgroundColor: '#92DFF3' }}>
               <View style={{ height: this.startHeaderHeight }}>
-                  <View style={{ flexDirection: 'row', padding: 10, marginHorizontal: 20,
-                    elevation: 1, marginTop: Platform.OS == 'android' ? 30 : null
-                    }}>
-                      <Icon name="ios-chatboxes" size={24} />
-                      <Text style={{ fontSize: 22, fontWeight: '500', paddingLeft: 100 }}>
+                  <View style={ styles.header}>
+                      <Icon name="ios-chatboxes" size={25} />
+                      <Text style={styles.homeText}>
                           Home
                       </Text>
                   </View>
@@ -60,5 +58,20 @@ const styles = StyleSheet.create({
       alignItems: 'center',
       justifyContent: 'center',
     },
+    header: {
+        flexDirection: 'row', 
+        padding: 10, 
+        marginHorizontal: 10, 
+        justifyContent: 'space-between',
+        alignItems: 'center', 
+        elevation: 1, 
+        marginTop: Platform.OS == 'android' ? 30 : null
+    },
+    homeText: {
+        fontSize: 22, 
+        fontWeight: '500', 
+        width: '60%', 
+        justifyContent: 'space-between'
+    }
   });
   
