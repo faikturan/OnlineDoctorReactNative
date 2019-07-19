@@ -7,66 +7,32 @@
  */
 
 import React, {Fragment} from 'react';
-import { StyleSheet, Text, View, Image } from 'react-native';
-import { createBottomTabNavigator } from 'react-navigation';
-import Icon from 'react-native-vector-icons/Ionicons'
-import Home from './screens/Home';
-import Pharmacy from './screens/Pharmacy';
-import Appointment from './screens/Appointment';
-import Profile from './screens/Profile';
+import { StyleSheet, Text, View } from 'react-native';
+import { createSwitchNavigator, createAppContainer } from 'react-navigation';
 
+import Login from './screens/Login';
+import SignUp from './screens/Signup';
+import Dashboard from './screens/Dashboard';
+import Loading from './screens/Loading';
 
-export default createBottomTabNavigator({
-  Home: {
-    screen:Home,
-    navigationOptions: {
-      tabBarLabel: 'HOME',
-      tabBarIcon: ({ tintColor }) => (
-        <Icon name="ios-home" color={tintColor} size={24} />
-      )
-    }
-  },
-  Pharmacy: {
-    screen:Pharmacy,
-    navigationOptions: {
-      tabBarLabel: 'PHARMACY',
-      tabBarIcon: ({ tintColor }) => (
-        <Icon name="ios-map" color={tintColor} size={24} />
-      )
-    }
-  },
-  Appointment: {
-    screen:Appointment,
-    navigationOptions: {
-      tabBarLabel: 'APPOINTMENT',
-      tabBarIcon: ({ tintColor }) => (
-        <Icon name="ios-paper" color={tintColor} size={24} />
-      )
-    }
-  },
-  Profile: {
-    screen:Profile,
-    navigationOptions: {
-      tabBarLabel: 'PROFILE',
-      tabBarIcon: ({ tintColor }) => (
-        <Icon name="ios-person" color={tintColor} size={24} />
-      )
-    }
+import * as firebase from 'firebase';
+import { firebaseConfig } from './screens/firebaseconfig';
+firebase.initializeApp(firebaseConfig);
+
+export default class App extends React.Component{
+  render() {
+    return <AppNavigator />;
   }
-},{
-  tabBarOptions:{
-    activeTintColor:'red',
-    inactiveTintColor:'grey',
-    style:{
-      backgroundColor:'white',
-      borderTopWidth:0,
-      shadowOffset:{width:5,height:3},
-      shadowColor:'black',
-      shadowOpacity:0.5,
-      elevation: 5
-    }
-  }
-})
+}
+
+const AppSwitchNavigator = createSwitchNavigator({
+  Loading : Loading,
+  Login : Login,
+  SignUp: SignUp,
+  Dashboard: Dashboard
+});
+
+const AppNavigator = createAppContainer(AppSwitchNavigator)
 
 const styles = StyleSheet.create({
   Container: {
