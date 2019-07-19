@@ -1,12 +1,14 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, SafeAreaView, Dimensions } from 'react-native';
+import { StyleSheet, Text, View, SafeAreaView, Dimensions, Button } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
+import firebase from 'firebase';
 
 import ProfileItem from './components/Profile/ProfileItem';
 
 const { height, width } = Dimensions.get('window');
 
 class Profile extends Component {
+  
   render() {
     return (
       <SafeAreaView style={{ flex: 1 }}>
@@ -14,7 +16,10 @@ class Profile extends Component {
             
           </View>
           <View style={{ flex: 1/9, backgroundColor: 'white'}}>
-
+            {/* {this.renderComponent()} */}
+            <Button
+            title="Sign out"
+            onPress = {() => firebase.auth().signOut()} />
           </View>
       </SafeAreaView>
     )
