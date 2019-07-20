@@ -1,30 +1,39 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, SafeAreaView, Dimensions, Button } from 'react-native';
+import { StyleSheet, Text, View, SafeAreaView, Dimensions, Button, TouchableOpacity } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import firebase from 'firebase';
-
-import ProfileItem from './components/Profile/ProfileItem';
 
 const { height, width } = Dimensions.get('window');
 
 class Profile extends Component {
-  
+
+  // static navigationOptions = {
+  //   header: null
+  // }
+
   render() {
+
     return (
       <SafeAreaView style={{ flex: 1 }}>
           <View style={{ flex: 8/9, backgroundColor: '#92DFF3' }}>
-            
+            <Button
+              title="Account"
+              onPress={() => this.props.navigation.navigate('Account')}
+            />
           </View>
           <View style={{ flex: 1/9, backgroundColor: 'white'}}>
-            {/* {this.renderComponent()} */}
-            <Button
-            title="Sign out"
-            onPress = {() => firebase.auth().signOut()} />
+          <TouchableOpacity
+          style={styles.customBtnBG}
+          onPress = {() => firebase.auth().signOut()} 
+          >
+            <Text style={styles.customBtnText}>Sign Out</Text>
+          </TouchableOpacity>
           </View>
       </SafeAreaView>
     )
   }
 }
+
 export default Profile;
 
 const styles = StyleSheet.create({
@@ -48,6 +57,21 @@ const styles = StyleSheet.create({
         fontWeight: '500', 
         width: '60%', 
         justifyContent: 'space-between'
-    }
+    },
+    /* Here style the text of your button */
+    customBtnText: {
+      fontSize: 35,
+      fontWeight: '700',
+      color: "black",
+      textAlign: 'center'
+    },
+
+    /* Here style the background of your button */
+      customBtnBG: {
+      backgroundColor: "#fff",
+      paddingHorizontal: 30,
+      paddingVertical: 10,
+      borderRadius: 30
+      }
   });
   
