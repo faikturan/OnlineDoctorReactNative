@@ -27,7 +27,10 @@ import Profile from './screens/Profile';
 
 import * as firebase from 'firebase';
 import { firebaseConfig } from './screens/firebaseconfig';
-firebase.initializeApp(firebaseConfig);
+
+if (!firebase.apps.length) {
+  firebase.initializeApp(firebaseConfig);
+}
 
 export default class App extends React.Component{
   render() {
