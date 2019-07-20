@@ -52,7 +52,7 @@ export default createBottomTabNavigator({
         <Icon name="ios-person" color={tintColor} size={24} />
       )
     }
-  }
+  },
 },{
   tabBarOptions:{
     activeTintColor:'red',

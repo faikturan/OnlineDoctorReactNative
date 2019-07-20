@@ -1,75 +1,161 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, Button, Label, InputAccessoryView, Item, Input } from 'react-native';
-import Form from 'react-native-form';
-import * as firebase from 'firebase';
-import firebaseConfig from '../../firebaseconfig';
+import { StyleSheet, Text, View, Button, Label, InputAccessoryView, Item, TextInput, AlertIOS, TouchableHighlight, Picker } from 'react-native';
+import firebase from 'firebase';
+import { SafeAreaView } from 'react-navigation';
 
-if (!firebase.apps.length) {
-  firebase.initializeApp(firebaseConfig);
-}
 
 export default class Account extends Component {
-  
+
+  componentDidMount() {
+    var config = {
+      apiKey: "AIzaSyDCozJ--F6g1nGzsxstmGXAm0Tfe39LVrc",
+      authDomain: "onlinedoctorproject.firebaseapp.com",
+      databaseURL: "https://onlinedoctorproject.firebaseio.com",
+      projectId: "onlinedoctorproject",
+      storageBucket: "onlinedoctorproject.appspot.com",
+      messagingSenderId: "298997965467",
+      appId: "1:298997965467:web:1b2070c19b10333d"
+    };
+    if (!firebase.apps.length) {
+      firebase.initializeApp(config);
+    }
+  }
+
   constructor(props) {
     super(props);
     this.state = {
-    };
-    this.itemsRef = firebase.database().ref().child('accountInfo')
+      firstname    : '',
+      lastname     : '',
+      address1     : '',
+      address2     : '',
+      dob          : '',
+      gender       : '',
+      mi           : '',
+      phone        : '',
+      servicecode  : '',
+      state        : '',
+      zipcode      : '',
+      email        : '',
+      username     : '',
+    }
+    // this.handleChange = this.handleChange.bind(this);
+    // this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  pushToFirebase() {
-    let formValues = this.refs.personalInfoForm.getValues()
-    this.itemsRef.push(formValues)
+  writeUserData(firstname, lastname, address1, address2, dob, gender, phone, mi,
+    servicecode, state, city,
+    ) {
+    firebase.database().ref('accountInfo/').push({
+      firstname,
+      lastname,
+      address1,
+      address2,
+      dob,
+      gender,
+      mi,
+      phone,
+      servicecode,
+      state,
+      zipcode,
+      email,
+      username,
+      city         
+    }).then((data) => {
+      console.log('data: ', data)
+    })
+  }
+
+  handleSubmit() {
+    updateAccountInfo(
+      this.state.firstname,
+      this.state.lastname,
+      this.state.address1,
+      this.state.address2,
+      this.state.mi,
+      this.state.dob,
+      this.state.gender,
+      this.state.phone,
+      this.state.servicecode,
+      this.state.state,
+      this.state.zipcode,
+      this.state.email,
+      this.state.username
+    );
+    AlertIOS.alert('Account Info updated successfully!');
   }
 
   render() {
     return (
-      <View style={styles.Container}>
-        <Text style={styles.title}>
-          Personal Information
-        </Text>
-        <Form ref="personalInfoForm" style={styles.form} >
-          <Item floatingLabel style={{marginTop:10}}>
-            <Label style={{marginLeft: 15}}>First name</Label>
-            <Input style={{marginLeft: 25}} name="firstName" type="TextInput" />
-          </Item>
-          <Item floatingLabel style={{marginTop:10}}>
-            <Label style={{marginLeft: 15}}>Last name</Label>
-            <Input style={{marginLeft: 25}} name="lastName" type="TextInput" />
-          </Item>
-          <Button Block primary onPress{() => this.pushToFirebase()} style={styles.button} />
+      <SafeAreaView style={{ flex: 1 }}>
+        <View style={{ flex: 1 }}>
+          <Text style={styles.title}>
+            Personal Information
+          </Text>
+          <View>
+            <TextInput
+              placeholder={'firstname'}
+              value={this.state.firstname}
+              onChangeText={(text) => this.updateAccountInfo(text, 'firstname')}
+            />  
+            <TextInput
+              placeholder={'firstname'}
+              value={this.state.lastname}
+              onChangeText={(text) => this.updateAccountInfo(text, 'lastname')}
+            /> 
+            <TextInput
+              placeholder={'firstname'}
+              value={this.state.mi}
+              onChangeText={(text) => this.updateAccountInfo(text, 'mi')}
+            />
+            <Picker style={{ width : '80%'}}
+              selectedValue={this.state.gender}
+              onValueChange={(itemValue, itemIndex) => this.setState({ gender : itemValue }) }
+            >
+              <Picker.Item label="Select a option" value="" />
+              <Picker.Item label="Male" value="male" />
+              <Picker.Item label="Female" value="female" />
+              <Picker.Item label="Other" value="other" />
+            </Picker>
+            <TextInput
+              placeholder={'firstname'}
+              value={this.state.firstname}
+              onChangeText={(text) => this.updateAccountInfo(text, 'firstname')}
+            /> 
+            <TextInput
+              placeholder={'firstname'}
+              value={this.state.firstname}
+              onChangeText={(text) => this.updateAccountInfo(text, 'firstname')}
+            /> 
+            <TextInput
+              placeholder={'firstname'}
+              value={this.state.firstname}
+              onChangeText={(text) => this.updateAccountInfo(text, 'firstname')}
+            /> 
+            <TextInput
+              placeholder={'firstname'}
+              value={this.state.firstname}
+              onChangeText={(text) => this.updateAccountInfo(text, 'firstname')}
+            /> 
+            <TextInput
+              placeholder={'firstname'}
+              value={this.state.firstname}
+              onChangeText={(text) => this.updateAccountInfo(text, 'firstname')}
+            /> 
+          </View>
           <Button title="go back to login screen" 
-          onPress={() => this.props.navigation.navigate('Profile')}>
-
+            onPress={() => this.props.navigation.navigate('Profile')}>
           </Button>
-        </Form>
-      </View>
+        </View>
+      </SafeAreaView>
     )
   }
 }
 
 const styles = StyleSheet.create({
-    Container: {
-      flex: 1,
-      backgroundColor: '#fff',
-      alignItems: 'center',
-      justifyContent: 'center',
-    },
-    title: {
-      fontSize: 30,
-      textAlign: 'center',
-      margin: 10,
-    },
-    text: {
-      textAlign: 'left',
-      color: '#333333',
-      marginBottom: 5,
-    },
-    form: {
-      width: '80%'
-    },
-    button: {
-      margin: 10
-    }
-  });
-  
+  Container: {
+    flex: 1,
+    backgroundColor: '#fff',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+});

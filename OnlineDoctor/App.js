@@ -25,7 +25,7 @@ import Referral from './screens/components/Profile/Referral';
 import Vaccination from './screens/components/Profile/Vaccination';
 import Profile from './screens/Profile';
 
-import * as firebase from 'firebase';
+import firebase from 'firebase';
 import { firebaseConfig } from './screens/firebaseconfig';
 
 if (!firebase.apps.length) {
