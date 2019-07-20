@@ -8,7 +8,7 @@
 
 import React, {Fragment} from 'react';
 import { StyleSheet, Text, View, Image } from 'react-native';
-import { createBottomTabNavigator } from 'react-navigation';
+import { createBottomTabNavigator, createStackNavigator } from 'react-navigation';
 import Icon from 'react-native-vector-icons/Ionicons';
 
 import Home from './Home';

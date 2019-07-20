@@ -9,7 +9,6 @@
 import React, {Fragment} from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { createSwitchNavigator, createAppContainer } from 'react-navigation';
-
 import Login from './screens/Login';
 import SignUp from './screens/Signup';
 import Dashboard from './screens/Dashboard';
@@ -23,7 +22,6 @@ import Monitor from './screens/components/Profile/Monitor';
 import Payment from './screens/components/Profile/Payment';
 import Referral from './screens/components/Profile/Referral';
 import Vaccination from './screens/components/Profile/Vaccination';
-import Profile from './screens/Profile';
 
 import firebase from 'firebase';
 import { firebaseConfig } from './screens/firebaseconfig';
@@ -42,8 +40,6 @@ const AppSwitchNavigator = createSwitchNavigator({
   Loading : Loading,
   Login : Login,
   SignUp: SignUp,
-  Dashboard: Dashboard,
-  Profile: { screen: Profile},
   Account: { screen: Account },
   CallHistory: { screen: CallHistory },
   FamilyMember: { screen: FamilyMember },
@@ -53,7 +49,7 @@ const AppSwitchNavigator = createSwitchNavigator({
   Payment: { screen: Payment },
   Referral: { screen: Referral },
   Vaccination: { screen: Vaccination },
-  
+  Dashboard : { screen: Dashboard }
 });
 
 const AppNavigator = createAppContainer(AppSwitchNavigator)
