@@ -69,7 +69,7 @@ export default class Account extends Component {
           phone : doc.toJSON().phone,
         })
       })
-    })
+    });
   }
 
   // writeUserData(firstname, lastname, address1, address2, dob, gender, phone, mi,
@@ -112,7 +112,29 @@ export default class Account extends Component {
 
   handleSubmit = () => {
     var email = firebase.auth().currentUser.email;
-    accountRef.push({
+    var email1 = firebase.database().ref.child('accounts/' + email);
+    if(email1 == ''){
+      accountRef.push({
+          firstname : this.state.firstname,
+          lastname : this.state.lastname, 
+          address1 : this.state.address1, 
+          address2 : this.state.address2,
+          dob : this.state.dob, 
+          gender : this.state.gender, 
+          phone : this.state.phone, 
+          mi : this.state.mi,
+          servicecode : this.state.servicecode, 
+          state : this.state.state, 
+          city : this.state.city,
+          zipcode : this.state.zipcode, 
+          email : email, 
+          username : email
+        }).then(() => {
+        alert('Account profile submited successfully!');
+      }).catch(error => this.setState({errorMessage : error.message}))
+    }
+    else {
+      accountRef.update({
         firstname : this.state.firstname,
         lastname : this.state.lastname, 
         address1 : this.state.address1, 
@@ -124,13 +146,12 @@ export default class Account extends Component {
         servicecode : this.state.servicecode, 
         state : this.state.state, 
         city : this.state.city,
-        zipcode : this.state.zipcode, 
-        email : email, 
-        username : email
+        zipcode : this.state.zipcode,
       }).then(() => {
-      alert('Account profile updated successfully!');
-    }).catch(error => this.setState({errorMessage : error.message}))
-  }
+        alert('Account profile updated successfully!');
+      }).catch(error => this.setState({errorMessage : error.message}))
+    }
+}
 
   render() {
     return (
