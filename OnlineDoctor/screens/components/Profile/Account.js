@@ -44,21 +44,22 @@ export default class Account extends Component {
       username     : '',
       password     : '',
       city         : '',
+      username     : '',
       errorMessage : null,
-      old_firstname: '',
-      old_lastname: '',
-      old_address1: '',
-      old_address2: '',
-      old_dob: '',
-      old_gender: '',
-      old_mi: '',
-      old_phone: '',
-      old_servicecode: '',
-      old_state: '',
-      old_zipcode: '',
-      old_email: '',
-      old_username: '',
-      old_city : ''
+      // firstname: '',
+      // lastname: '',
+      // address1: '',
+      // address2: '',
+      // dob: '',
+      // gender: '',
+      // mi: '',
+      // phone: '',
+      // servicecode: '',
+      // state: '',
+      // zipcode: '',
+      // email: '',
+      // username: '',
+      // city : ''
     };
   }
 
@@ -66,10 +67,27 @@ export default class Account extends Component {
     var email = firebase.auth().currentUser.email;
     console.log(email);
     var query = accountRef.orderByChild('email').equalTo(email);
-    query.once('value', function(snapshot) {
-      snapshot.forEach(function(child) {
-        var firstname_display = child.val().firstname;
-        console.log(firstname_display);
+    query.once('value', (snapshot) => {
+      snapshot.forEach((child) => {
+        // var firstname_display = child.val().firstname;
+        this.setState({
+          firstname : child.val().firstname,
+          lastname : child.val().lastname,
+          mi : child.val().mi,
+          address1 : child.val().address1,
+          address2 : child.val().address2,
+          city : child.val().city,
+          state : child.val().state,
+          zipcode : child.val().zipcode,
+          phone : child.val().lastname,
+          dob : child.val().dob,
+          gender : child.val().gender,
+          servicecode : child.val().servicecode,
+          username : child.val().username
+        })
+        // console.log(firstname_display);
+        console.log(this.state.firstname);
+        console.log(this.state.zipcode);
       });
     }).catch((error) => {
       console.log(error);
@@ -101,19 +119,19 @@ export default class Account extends Component {
     //   let obj = data.toJSON()
     //   console.log(obj);
     //   // this.setState({
-    //   //   old_firstname : accountsObj.firstname,
-    //   //   old_lastname : accountsObj.lastname,
-    //   //   old_address1 : accountsObj.address1,
-    //   //   old_address2 : accountsObj.address2,
-    //   //   old_dob : accountsObj.dob,
-    //   //   old_gender : accountsObj.gender,
-    //   //   old_mi : accountsObj.mi,
-    //   //   old_phone : accountsObj.phone,
-    //   //   old_servicecode : accountsObj.servicecode,
-    //   //   old_state : accountsObj.state,
-    //   //   old_city : accountsObj.city,
-    //   //   old_email : accountsObj.email,
-    //   //   old_username : accountsObj.username,
+    //   //   firstname : accountsObj.firstname,
+    //   //   lastname : accountsObj.lastname,
+    //   //   address1 : accountsObj.address1,
+    //   //   address2 : accountsObj.address2,
+    //   //   dob : accountsObj.dob,
+    //   //   gender : accountsObj.gender,
+    //   //   mi : accountsObj.mi,
+    //   //   phone : accountsObj.phone,
+    //   //   servicecode : accountsObj.servicecode,
+    //   //   state : accountsObj.state,
+    //   //   city : accountsObj.city,
+    //   //   email : accountsObj.email,
+    //   //   username : accountsObj.username,
     //   // });
     //   // console.log(this.state.firstname);
     // }).catch((error) => {
@@ -159,27 +177,34 @@ export default class Account extends Component {
   //   })
   // }
 
-  readData = () => {
-    var email = firebase.auth().currentUser.email;;
-    var query = accountRef.orderByChild('email').equalTo(email);
-    query.once('value', function(snapshot) {
-      snapshot.forEach(function(child) {
-        console.log(child.key, child.val().firstname);
-      });
-    }).catch((error) => {
-      console.log(error);
-    })
-  }
+  // readData = () => {
+  //   var email = firebase.auth().currentUser.email;;
+  //   var query = accountRef.orderByChild('email').equalTo(email);
+  //   query.once('value', function(snapshot) {
+  //     snapshot.forEach(function(child) {
+  //       console.log(child.key, child.val().firstname);
+  //     });
+  //   }).catch((error) => {
+  //     console.log(error);
+  //   })
+  // }
 
   handleSubmit = () => {
     var email = firebase.auth().currentUser.email;
-    var newPostKey = firebase.database().ref().child('AccountProfile').push().key;
-    accountRef.orderByChild('email').equalTo({email}).on('value', snapshot => {
-      // this.setState = { email1: snapshot.val().email }});
-      console.log(snapshot.val().firstname);
+    // var newPostKey = firebase.database().ref().child('AccountProfile').push().key;
+    var query = accountRef.orderByChild('email').equalTo(email);
+    query.once('value', (snapshot) => {
+      snapshot.forEach((child) => {
+        this.setState({
+          email1 : child.val().email
+        })
+        console.log(this.state.email1);
+      });
+    }).catch((error) => {
+      console.log(error);
     });
-    if(this.state.email1 == ''){
-      accountRef.push({
+    if(this.state.email1 === ''){
+      firebase.database().ref().child('AccountProfile/'+ this.state.username).set({
           firstname : this.state.firstname,
           lastname : this.state.lastname, 
           address1 : this.state.address1, 
@@ -192,13 +217,14 @@ export default class Account extends Component {
           state : this.state.state, 
           city : this.state.city,
           zipcode : this.state.zipcode, 
-          email : email, 
+          email : email,
+          username : this.state.username 
         }).then(() => {
         alert('Account profile submited successfully!');
       }).catch(error => this.setState({errorMessage : error.message}))
     }
-    else {
-      accountRef.update({
+    if(this.state.email1 === email) {
+      firebase.database().ref().child('AccountProfile/' + this.state.username).update({
         firstname : this.state.firstname,
         lastname : this.state.lastname, 
         address1 : this.state.address1, 
@@ -211,6 +237,7 @@ export default class Account extends Component {
         state : this.state.state, 
         city : this.state.city,
         zipcode : this.state.zipcode,
+        username : this.state.username
       }).then(() => {
         alert('Account profile updated successfully!');
       }).catch(error => this.setState({errorMessage : error.message}))
@@ -231,19 +258,24 @@ export default class Account extends Component {
             Personal Information
           </Text>
           <View>
-            <TextInput
-              placeholder={'firstname'}
+            <TextInput style={styles.textinput}
+              placeholder={'Username'}
+              value={this.state.username}
+              onChangeText={(text) => this.setState({username : text})}
+            /> 
+            <TextInput style={styles.textinput}
+              placeholder={'Firstname'}
               value={this.state.firstname}
               onChangeText={(text) => this.setState({firstname : text})}
             />  
-            <TextInput
-              placeholder={'lastname'}
+            <TextInput style={styles.textinput}
+              placeholder={'Lastname'}
               value={this.state.lastname}
               onChangeText={(text) => this.setState({lastname : text})}
             /> 
-            <TextInput
-              placeholder={'mi'}
-              value={this.state.mi}
+            <TextInput style={styles.textinput}
+              placeholder={'MI'}
+              value={this.state.mi || this.state.mi}
               onChangeText={(text) => this.setState({mi : text})}
             />
             {/* <Picker style={{ width : '80%'}}
@@ -255,53 +287,52 @@ export default class Account extends Component {
               <Picker.Item label="Female" value="female" />
               <Picker.Item label="Other" value="other" />
             </Picker> */}
-            <TextInput
-              placeholder={'phone'}
+            <TextInput style={styles.textinput}
+              placeholder={'Phone'}
               value={this.state.phone}
               onChangeText={(text) => this.setState({phone : text})}
             /> 
-            <TextInput
-              placeholder={'address1'}
+            <TextInput style={styles.textinput}
+              placeholder={'Address1'}
               value={this.state.address1}
               onChangeText={(text) => this.setState({address1 : text})}
             /> 
-            <TextInput
-              placeholder={'address2'}
+            <TextInput style={styles.textinput}
+              placeholder={'Address2'}
               value={this.state.address2}
               onChangeText={(text) => this.setState({address2 : text})}
             /> 
-            <TextInput
-              placeholder={'dob'}
+            <TextInput style={styles.textinput}
+              placeholder={'DOB'}
               value={this.state.dob}
               onChangeText={(text) => this.setState({dob : text})}
             /> 
-            <TextInput
-              placeholder={'gender'}
+            <TextInput style={styles.textinput}
+              placeholder={'Gender'}
               value={this.state.gender}
               onChangeText={(text) => this.setState({gender : text})}
             /> 
-            <TextInput
-              placeholder={'state'}
+            <TextInput style={styles.textinput}
+              placeholder={'State'}
               value={this.state.state}
               onChangeText={(text) => this.setState({state : text})}
             /> 
-            <TextInput
-              placeholder={'city'}
+            <TextInput style={styles.textinput}
+              placeholder={'City'}
               value={this.state.city}
               onChangeText={(text) => this.setState({city : text})}
             /> 
-            <TextInput
-              placeholder={'zipcode'}
-              value={this.state.zipcode}
+            <TextInput style={styles.textinput}
+              placeholder={'Zipcode'}
+              value={this.state.zipcode && String(this.state.zipcode)}
               onChangeText={(text) => this.setState({zipcode : text})}
             /> 
-            <TextInput
-              placeholder={'servicecode'}
+            <TextInput style={styles.textinput}
+              placeholder={'Servicecode'}
               value={this.state.servicecode}
               onChangeText={(text) => this.setState({servicecode : text})}
             /> 
             <Button title= "Submit" onPress={this.handleSubmit} />
-            <Button title= "Test" onPress={this.readData} />
           </View>
           <Button title="go back to login screen" 
             onPress={() => this.props.navigation.navigate('Profile')}>
@@ -333,5 +364,10 @@ const styles = StyleSheet.create({
       fontWeight: '500', 
       width: '65%', 
       justifyContent: 'space-between'
+  },
+  textinput: {
+    height: 40, 
+    borderColor: 'gray', 
+    borderWidth: 1
   },
 });
