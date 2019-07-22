@@ -21,7 +21,7 @@ if (!firebase.apps.length) {
 
 
 const rootRef = firebase.database().ref();
-const accountRef = rootRef.child('accounts');
+const accountRef = rootRef.child('AccountProfile');
 
 export default class Account extends Component {
 
@@ -40,36 +40,85 @@ export default class Account extends Component {
       state        : '',
       zipcode      : '',
       email        : '',
+      email1       : '',
       username     : '',
       password     : '',
       city         : '',
-      errorMessage : null
+      errorMessage : null,
+      old_firstname: '',
+      old_lastname: '',
+      old_address1: '',
+      old_address2: '',
+      old_dob: '',
+      old_gender: '',
+      old_mi: '',
+      old_phone: '',
+      old_servicecode: '',
+      old_state: '',
+      old_zipcode: '',
+      old_email: '',
+      old_username: '',
+      old_city : ''
     };
   }
 
   componentDidMount() {
-    accountRef.on('value', (childSnapshot) => {
-      const accounts = [];
-      childSnapshot.forEach((doc) => {
-        accounts.push({
-          key : doc.key,
-          firstname: doc.toJSON().firstname,
-          lastname: doc.toJSON().lastname,
-          address1: doc.toJSON().address1,
-          address2: doc.toJSON().address2,
-          dob: doc.toJSON().dob,
-          gender: doc.toJSON().gender,
-          mi: doc.toJSON().mi,
-          phone: doc.toJSON().phone,
-          servicecode: doc.toJSON().servicecode,
-          state: doc.toJSON().state,
-          city: doc.toJSON().city,
-          email: doc.toJSON().email,
-          username: doc.toJSON().username,
-          phone : doc.toJSON().phone,
-        })
-      })
+    var email = firebase.auth().currentUser.email;
+    console.log(email);
+    var query = accountRef.orderByChild('email').equalTo(email);
+    query.once('value', function(snapshot) {
+      snapshot.forEach(function(child) {
+        var firstname_display = child.val().firstname;
+        console.log(firstname_display);
+      });
+    }).catch((error) => {
+      console.log(error);
     });
+    // accountRef.on('value', (childSnapshot) => {
+    //   const accounts = [];
+    //   childSnapshot.forEach((doc) => {
+    //     accounts.push({
+    //       key : doc.key,
+    //       firstname: doc.toJSON().firstname,
+    //       lastname: doc.toJSON().lastname,
+    //       address1: doc.toJSON().address1,
+    //       address2: doc.toJSON().address2,
+    //       dob: doc.toJSON().dob,
+    //       gender: doc.toJSON().gender,
+    //       mi: doc.toJSON().mi,
+    //       phone: doc.toJSON().phone,
+    //       servicecode: doc.toJSON().servicecode,
+    //       state: doc.toJSON().state,
+    //       city: doc.toJSON().city,
+    //       email: doc.toJSON().email,
+    //       username: doc.toJSON().username,
+    //     })
+    //   })
+    // });
+    // var email = firebase.auth().currentUser.email;
+    
+    // firebase.database().ref('UserProfile').once('value', data => {
+    //   let obj = data.toJSON()
+    //   console.log(obj);
+    //   // this.setState({
+    //   //   old_firstname : accountsObj.firstname,
+    //   //   old_lastname : accountsObj.lastname,
+    //   //   old_address1 : accountsObj.address1,
+    //   //   old_address2 : accountsObj.address2,
+    //   //   old_dob : accountsObj.dob,
+    //   //   old_gender : accountsObj.gender,
+    //   //   old_mi : accountsObj.mi,
+    //   //   old_phone : accountsObj.phone,
+    //   //   old_servicecode : accountsObj.servicecode,
+    //   //   old_state : accountsObj.state,
+    //   //   old_city : accountsObj.city,
+    //   //   old_email : accountsObj.email,
+    //   //   old_username : accountsObj.username,
+    //   // });
+    //   // console.log(this.state.firstname);
+    // }).catch((error) => {
+    //   console.log(error)
+    // });
   }
 
   // writeUserData(firstname, lastname, address1, address2, dob, gender, phone, mi,
@@ -110,10 +159,26 @@ export default class Account extends Component {
   //   })
   // }
 
+  readData = () => {
+    var email = firebase.auth().currentUser.email;;
+    var query = accountRef.orderByChild('email').equalTo(email);
+    query.once('value', function(snapshot) {
+      snapshot.forEach(function(child) {
+        console.log(child.key, child.val().firstname);
+      });
+    }).catch((error) => {
+      console.log(error);
+    })
+  }
+
   handleSubmit = () => {
     var email = firebase.auth().currentUser.email;
-    var email1 = firebase.database().ref.child('accounts/' + email);
-    if(email1 == ''){
+    var newPostKey = firebase.database().ref().child('AccountProfile').push().key;
+    accountRef.orderByChild('email').equalTo({email}).on('value', snapshot => {
+      // this.setState = { email1: snapshot.val().email }});
+      console.log(snapshot.val().firstname);
+    });
+    if(this.state.email1 == ''){
       accountRef.push({
           firstname : this.state.firstname,
           lastname : this.state.lastname, 
@@ -128,7 +193,6 @@ export default class Account extends Component {
           city : this.state.city,
           zipcode : this.state.zipcode, 
           email : email, 
-          username : email
         }).then(() => {
         alert('Account profile submited successfully!');
       }).catch(error => this.setState({errorMessage : error.message}))
@@ -237,6 +301,7 @@ export default class Account extends Component {
               onChangeText={(text) => this.setState({servicecode : text})}
             /> 
             <Button title= "Submit" onPress={this.handleSubmit} />
+            <Button title= "Test" onPress={this.readData} />
           </View>
           <Button title="go back to login screen" 
             onPress={() => this.props.navigation.navigate('Profile')}>
