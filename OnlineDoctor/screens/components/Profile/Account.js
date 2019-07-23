@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, Button, Label, InputAccessoryView, Item, TextInput, AlertIOS, TouchableHighlight, Picker, Dimensions } from 'react-native';
+import { StyleSheet, Text, View, Button, Label, InputAccessoryView, Item, TextInput, AlertIOS, TouchableHighlight, Picker, Dimensions, ScrollView } from 'react-native';
 import firebase from 'firebase';
 import { SafeAreaView } from 'react-navigation';
 import Icon from 'react-native-vector-icons/Ionicons';
+import { TextField } from 'react-native-material-textfield';
+
 
 const { width: WIDTH } = Dimensions.get('window')
 
@@ -250,94 +252,111 @@ export default class Account extends Component {
         <View style={{ flex: 1 }}>
           <View style={{ height: this.startHeaderHeight }}>
             <View style={ styles.header}>
-                <Icon name="ios-arrow-back" size={25} />
+                <Icon 
+                  name="ios-arrow-back" 
+                  size={25}
+                  onPress ={() => this.props.navigation.navigate('Profile')}
+                />
                 <Text style={styles.headertext}>Account</Text>
             </View>
           </View>
           <Text style={styles.title}>
             Personal Information
           </Text>
-          <View>
-            <TextInput style={styles.textinput}
-              placeholder={'Username'}
-              value={this.state.username}
-              onChangeText={(text) => this.setState({username : text})}
-            /> 
-            <TextInput style={styles.textinput}
-              placeholder={'Firstname'}
-              value={this.state.firstname}
-              onChangeText={(text) => this.setState({firstname : text})}
-            />  
-            <TextInput style={styles.textinput}
-              placeholder={'Lastname'}
-              value={this.state.lastname}
-              onChangeText={(text) => this.setState({lastname : text})}
-            /> 
-            <TextInput style={styles.textinput}
-              placeholder={'MI'}
-              value={this.state.mi || this.state.mi}
-              onChangeText={(text) => this.setState({mi : text})}
-            />
-            {/* <Picker style={{ width : '80%'}}
-              selectedValue={this.state.gender}
-              onValueChange={(itemValue, itemIndex) => this.setState({ gender : itemValue }) }
-            >
-              <Picker.Item label="Select a option" value="" />
-              <Picker.Item label="Male" value="male" />
-              <Picker.Item label="Female" value="female" />
-              <Picker.Item label="Other" value="other" />
-            </Picker> */}
-            <TextInput style={styles.textinput}
-              placeholder={'Phone'}
-              value={this.state.phone}
-              onChangeText={(text) => this.setState({phone : text})}
-            /> 
-            <TextInput style={styles.textinput}
-              placeholder={'Address1'}
-              value={this.state.address1}
-              onChangeText={(text) => this.setState({address1 : text})}
-            /> 
-            <TextInput style={styles.textinput}
-              placeholder={'Address2'}
-              value={this.state.address2}
-              onChangeText={(text) => this.setState({address2 : text})}
-            /> 
-            <TextInput style={styles.textinput}
-              placeholder={'DOB'}
-              value={this.state.dob}
-              onChangeText={(text) => this.setState({dob : text})}
-            /> 
-            <TextInput style={styles.textinput}
-              placeholder={'Gender'}
-              value={this.state.gender}
-              onChangeText={(text) => this.setState({gender : text})}
-            /> 
-            <TextInput style={styles.textinput}
-              placeholder={'State'}
-              value={this.state.state}
-              onChangeText={(text) => this.setState({state : text})}
-            /> 
-            <TextInput style={styles.textinput}
-              placeholder={'City'}
-              value={this.state.city}
-              onChangeText={(text) => this.setState({city : text})}
-            /> 
-            <TextInput style={styles.textinput}
-              placeholder={'Zipcode'}
-              value={this.state.zipcode && String(this.state.zipcode)}
-              onChangeText={(text) => this.setState({zipcode : text})}
-            /> 
-            <TextInput style={styles.textinput}
-              placeholder={'Servicecode'}
-              value={this.state.servicecode}
-              onChangeText={(text) => this.setState({servicecode : text})}
-            /> 
-            <Button title= "Submit" onPress={this.handleSubmit} />
+          <ScrollView scrollEventThrottle={16}>
+            <ScrollView vertical={true}
+                      showsVerticalScrollIndicator={true}>
+              <TextField
+                label='Username'
+                placeholder={'Username'}
+                value={this.state.username}
+                onChangeText={(text) => this.setState({username : text})}
+              /> 
+              <TextField
+                label='Firstname'
+                placeholder={'Firstname'}
+                value={this.state.firstname}
+                onChangeText={(text) => this.setState({firstname : text})}
+              />  
+              <TextField
+                label='Lastname'
+                placeholder={'Lastname'}
+                value={this.state.lastname}
+                onChangeText={(text) => this.setState({lastname : text})}
+              /> 
+              <TextField
+                label='MI'
+                placeholder={'MI'}
+                value={this.state.mi || this.state.mi}
+                onChangeText={(text) => this.setState({mi : text})}
+              />
+              {/* <Picker style={{ width : '80%'}}
+                selectedValue={this.state.gender}
+                onValueChange={(itemValue, itemIndex) => this.setState({ gender : itemValue }) }
+              >
+                <Picker.Item label="Select a option" value="" />
+                <Picker.Item label="Male" value="male" />
+                <Picker.Item label="Female" value="female" />
+                <Picker.Item label="Other" value="other" />
+              </Picker> */}
+              <TextField
+                label='Phone'
+                placeholder={'Phone'}
+                value={this.state.phone}
+                onChangeText={(text) => this.setState({phone : text})}
+              /> 
+              <TextField
+                label='Address1'
+                placeholder={'Address1'}
+                value={this.state.address1}
+                onChangeText={(text) => this.setState({address1 : text})}
+              /> 
+              <TextField
+                label='Address2'
+                placeholder={'Address2'}
+                value={this.state.address2}
+                onChangeText={(text) => this.setState({address2 : text})}
+              /> 
+              <TextField
+                label='DOB'
+                placeholder={'DOB'}
+                value={this.state.dob}
+                onChangeText={(text) => this.setState({dob : text})}
+              /> 
+              <TextField
+                label='Gender'
+                placeholder={'Gender'}
+                value={this.state.gender}
+                onChangeText={(text) => this.setState({gender : text})}
+              /> 
+              <TextField
+                label='State'
+                placeholder={'State'}
+                value={this.state.state}
+                onChangeText={(text) => this.setState({state : text})}
+              /> 
+              <TextField
+                label='City'
+                placeholder={'City'}
+                value={this.state.city}
+                onChangeText={(text) => this.setState({city : text})}
+              /> 
+              <TextField
+                label='Zipcode'
+                placeholder={'Zipcode'}
+                value={this.state.zipcode && String(this.state.zipcode)}
+                onChangeText={(text) => this.setState({zipcode : text})}
+              /> 
+              <TextField
+                label='Servicecode'
+                placeholder={'Servicecode'}
+                value={this.state.servicecode}
+                onChangeText={(text) => this.setState({servicecode : text})}
+              /> 
+              <Button title= "Submit" onPress={this.handleSubmit} />
+            </ScrollView>
+          </ScrollView>
           </View>
-          <Button title="go back to login screen" 
-            onPress={() => this.props.navigation.navigate('Profile')}>
-          </Button>
-        </View>
       </SafeAreaView>
     )
   }

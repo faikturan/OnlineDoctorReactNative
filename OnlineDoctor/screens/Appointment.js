@@ -1,12 +1,84 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View, Button, Dimensions } from 'react-native';
+import { SafeAreaView } from 'react-navigation';
+import Icon from 'react-native-vector-icons/Ionicons';
+import Icon1 from 'react-native-vector-icons/Feather';
+
+const { width, height } = Dimensions.get('window')
 
 class Appointment extends Component {
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      isUpcomingListVisible : true,
+      isPastListVisible : false,
+    }
+  }
+
+  upcomingListHideAndShow = () => {
+    this.setState(previousState => ({ 
+      isUpcomingListVisible: !previousState.isUpcomingListVisible,
+      isPastListVisible: !previousState.isPastListVisible,
+    }))
+  }
+
+  pastListHideAndShow = () => {
+    this.setState(previousState => ({ 
+      isPastListVisible: !previousState.isPastListVisible, 
+      isUpcomingListVisible: !previousState.isUpcomingListVisible,
+    }))
+  }
+
+
   render() {
     return (
-      <View style={styles.Container}>
-        <Text>Appointment</Text>
-      </View>
+      <SafeAreaView style={{ flex:1 }}>
+        <View style={{ height: this.startHeaderHeight }}>
+          <View style={ styles.header}>
+              <Icon name="ios-chatboxes" size={25} />
+              <Text style={styles.homeText}>
+                  Appointment
+              </Text>
+              <Icon1 
+                name="plus" 
+                size={25} 
+                onPress ={() => this.props.navigation.navigate('MakeAppointment')}
+              />
+          </View>
+        </View>
+        <View style={{ flex:1 }}>
+          <View style={styles.buttonlayout}>
+            <Button style={styles.button}
+              title='Upcoming'
+              onPress={this.upcomingListHideAndShow}
+            />
+            <Button style={styles.button}
+              title='Past'
+              onPress={this.pastListHideAndShow}
+            />
+          </View>
+        </View>
+        <View style={{ flex:1 }}>
+          { this.state.isUpcomingListVisible ? 
+            <View hide={this.state.isUpcomingListVisible}>
+              <Text>
+                Upcoming
+              </Text>
+            </View>
+            : null 
+          }
+          { this.state.isPastListVisible ? 
+          <View hide={this.state.isPastListVisible}>
+            <Text>
+              Past
+            </Text>
+          </View>
+          : null
+          }
+          
+        </View>
+      </SafeAreaView>
     )
   }
 }
@@ -19,5 +91,26 @@ const styles = StyleSheet.create({
       alignItems: 'center',
       justifyContent: 'center',
     },
+    header: {
+      flexDirection: 'row', 
+      padding: 10, 
+      marginHorizontal: 10, 
+      justifyContent: 'space-between',
+      alignItems: 'center', 
+      elevation: 1, 
+      marginTop: Platform.OS == 'android' ? 30 : null
+    },
+    homeText: {
+        fontSize: 22, 
+        fontWeight: '500', 
+        width: '35%', 
+        justifyContent: 'space-between'
+    },
+    buttonlayout: {
+      flexDirection: 'row'
+    },
+    button: {
+      width: '50%'
+    }
   });
   
