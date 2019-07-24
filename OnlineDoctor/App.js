@@ -23,6 +23,7 @@ import Payment from './screens/components/Profile/Payment';
 import Referral from './screens/components/Profile/Referral';
 import Vaccination from './screens/components/Profile/Vaccination';
 import MakeAppointment from './screens/components/Appointment/MakeAppointment';
+import Slot from './screens/components/Appointment/Slot';
 
 import firebase from 'firebase';
 import { firebaseConfig } from './screens/firebaseconfig';
@@ -52,6 +53,7 @@ const AppSwitchNavigator = createSwitchNavigator({
   Vaccination: { screen: Vaccination },
   Dashboard : { screen: Dashboard },
   MakeAppointment : { screen: MakeAppointment },
+  Slot : { screen: Slot },
 });
 
 const AppNavigator = createAppContainer(AppSwitchNavigator)

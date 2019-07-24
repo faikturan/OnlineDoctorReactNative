@@ -1,11 +1,8 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, Button, Dimensions, ScrollView } from 'react-native';
+import { StyleSheet, Text, View, Button, Dimensions } from 'react-native';
 import firebase from 'firebase';
 import { SafeAreaView } from 'react-navigation';
 import Icon from 'react-native-vector-icons/Ionicons';
-import { Calendar, CalendarList, Agenda} from 'react-native-calendars';
-import Animbutton from './Animbutton';
-
 
 var config = {
     apiKey: "AIzaSyDCozJ--F6g1nGzsxstmGXAm0Tfe39LVrc",
@@ -22,7 +19,7 @@ firebase.initializeApp(config);
 
 const { width } = Dimensions.get('window');
 
-const jsonData = { "slots" : {
+const jsonData = { "slot" : {
     "slot1" :   "9:00am to 9:30am",
     "slot2" :   "9:30am to 10:00am",
     "slot3" :   "10:00am to 10:30am",
@@ -42,22 +39,12 @@ const jsonData = { "slots" : {
     "slot17" :  "5:00pm to 5:30am",
     "slot18" :  "5:00pm to 6:00am",
 }}
-
 export default class MakeAppointment extends Component {
 
     constructor(props) {
-        super(props);
-        this.state = {};
-        this.onDayPress = this.onDayPress.bind(this);
-        this.bookingDate = '';
-    }
-
-    onDayPress(day) {
-        this.setState({
-            selected : day.dateString,
-            bookingDate : day
-        });
-        // this.props.navigation.navigate('Slot', { bookingDate : day });
+        this.state = {
+            bookingDate : this.props.navigation.state.params.bookingDate
+        }
     }
 
     _bookSlot(status, key, value) {
@@ -67,15 +54,8 @@ export default class MakeAppointment extends Component {
         
     }
 
-    render() {
-        let _this = this
-        const slots = jsonData.slots
-        const slotsarr = Object.keys(slots).map( function(k) {
-        return (  <View key={k} style={{margin:5}}>
-                    <Animbutton countCheck={0} onColor={"green"} effect={"pulse"} _onPress={(status) => _this._bookSlot(status,k,slots[k]) } text={slots[k]} />
-                    </View>)
-        });
-        return (
+    render () {
+        return(
             <SafeAreaView style={{ flex:1 }}>
                 <View style={{ height: this.startHeaderHeight }}>
                     <View style={ styles.header}>
@@ -87,35 +67,11 @@ export default class MakeAppointment extends Component {
                         <Text style={styles.headertext}>Make Appointment</Text>
                     </View>
                 </View>
-                <View style={{ flex:1 }}>
-                    <Calendar
-                        style={styles.calendar}
-                        horizontal = {true}
-                        pagingEnabled = {true}
-                        CalendarWidth={320}
-                        current={this.state.default}
-                        onDayPress= { this.onDayPress }
-                        hideExtraDays
-                        markedDates = {{[this.state.selected]: {selected : true }}}
-                        theme={{
-                            selectedDayBackgroundColor : 'green',
-                            todayTextColor: 'green',
-                            arrowColor: 'green'
-                        }}
-                    />
-                </View>
-                <View style={{ flex:1 }}>
-                    <ScrollView scrollEventThrottle={16}>
-                        <ScrollView vertical={true}
-                        showsVerticalScrollIndicator={true}>
-                            { slotsarr }
-                        </ScrollView>
-                    </ScrollView>
-                </View>
             </SafeAreaView>
         )
     }
 }
+
 const styles = StyleSheet.create({
     Container: {
         flex: 1,
@@ -137,17 +93,5 @@ const styles = StyleSheet.create({
         fontWeight: '500', 
         width: '75%', 
         justifyContent: 'space-between'
-    },
-    textinput: {
-        height: 40, 
-        borderColor: 'gray', 
-        borderWidth: 1
-    },
-    calendar: {
-        borderTopWidth: 1,
-        paddingTop: 5,
-        borderBottomWidth: 1,
-        borderColor: '#eee',
-        height : 350
     },
 });
