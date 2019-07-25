@@ -81,7 +81,7 @@ export default class Account extends Component {
           city : child.val().city,
           state : child.val().state,
           zipcode : child.val().zipcode,
-          phone : child.val().lastname,
+          phone : child.val().phone,
           dob : child.val().dob,
           gender : child.val().gender,
           servicecode : child.val().servicecode,

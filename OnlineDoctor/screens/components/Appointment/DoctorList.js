@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, Button, Dimensions, ScrollView } from 'react-native';
+import { StyleSheet, Text, View, Button, Dimensions, ScrollView, FlatList } from 'react-native';
 import firebase from 'firebase';
 import { SafeAreaView } from 'react-navigation';
 import Icon from 'react-native-vector-icons/Ionicons';
-
+import { ListItem } from 'react-native-elements';
 const { width } = Dimensions.get('window');
 
 var config = {
@@ -19,14 +19,51 @@ if (!firebase.apps.length) {
 firebase.initializeApp(config);
 };
 
-export default class MakeAppointment extends Component {
+const rootRef = firebase.database().ref();
+// const providerRef = rootRef.child('Provider');
+
+export default class DoctorList extends Component {
 
     constructor(props) {
         super(props);
-        this.state = {};
-        this.onDayPress = this.onDayPress.bind(this);
-        this.bookingDate = '';
+        this.state = {
+            arrData : []
+        };
     }
+
+    componentDidMount () {
+        var query = rootRef.child('Provider');
+        query.once('value', (snapshot) => {
+            var items = [];
+            snapshot.forEach((child) => {
+                items.push({
+                    firstname : child.val().firstname,
+                    lastname : child.val().lastname,
+                    mi : child.val().mi,
+                    gender : child.val().gender,
+                    phone : child.val().phone,
+                    provider : child.val().provider,
+                    email : child.val().email,
+                    specialty : child.val().specialty,
+                    language : child.val().language,
+                    title : child.val().title,
+                    image : child.val().image,
+                });
+            });
+            this.setState({ arrData : items });
+            console.log(this.state.arrData);
+        });
+    };
+
+    keyExtractor = (item, index) => index.toString()
+
+    renderItem = ({ item }) => (
+        <ListItem
+            leftAvatar={{ source: { uri: item.image }}}
+            title={ item.title + ' ' + item.firstname + ' ' + item.lastname }
+            subtitle= { item.specialty }
+        />
+    )
 
     render() {
         return (
@@ -36,11 +73,19 @@ export default class MakeAppointment extends Component {
                         <Icon 
                         name="ios-arrow-back" 
                         size={25}
-                        onPress ={() => this.props.navigation.navigate('MakeAppointment')}
+                        onPress ={() => this.props.navigation.navigate('Appointment')}
                         />
                         <Text style={styles.headertext}>Select a doctor</Text>
                     </View>
                 </View>
+                <View style={{ flex:1 }}>
+                    <FlatList
+                        keyExtractor={this.keyExtractor}
+                        data={this.state.arrData}
+                        renderItem={this.renderItem}
+                    />
+                </View>
+                
             </SafeAreaView>
         )
     }
