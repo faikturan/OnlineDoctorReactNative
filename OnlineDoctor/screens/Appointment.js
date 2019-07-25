@@ -43,7 +43,7 @@ class Appointment extends Component {
               <Icon1 
                 name="plus" 
                 size={25} 
-                onPress ={() => this.props.navigation.navigate('MakeAppointment')}
+                onPress ={() => this.props.navigation.navigate('DoctorList')}
               />
           </View>
         </View>

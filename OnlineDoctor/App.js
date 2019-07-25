@@ -24,6 +24,7 @@ import Referral from './screens/components/Profile/Referral';
 import Vaccination from './screens/components/Profile/Vaccination';
 import MakeAppointment from './screens/components/Appointment/MakeAppointment';
 import Slot from './screens/components/Appointment/Slot';
+import DoctorList from './screens/components/Appointment/DoctorList';
 
 import firebase from 'firebase';
 import { firebaseConfig } from './screens/firebaseconfig';
@@ -54,6 +55,7 @@ const AppSwitchNavigator = createSwitchNavigator({
   Dashboard : { screen: Dashboard },
   MakeAppointment : { screen: MakeAppointment },
   Slot : { screen: Slot },
+  DoctorList : { screen: DoctorList },
 });
 
 const AppNavigator = createAppContainer(AppSwitchNavigator)
