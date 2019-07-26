@@ -67,11 +67,11 @@ const styles = StyleSheet.create({
     },
 
     /* Here style the background of your button */
-      customBtnBG: {
-      backgroundColor: "#fff",
-      paddingHorizontal: 30,
-      paddingVertical: 10,
-      borderRadius: 30
-      }
+    customBtnBG: {
+    backgroundColor: "#fff",
+    paddingHorizontal: 30,
+    paddingVertical: 10,
+    borderRadius: 30
+    }
   });
   

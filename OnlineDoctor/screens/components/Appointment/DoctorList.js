@@ -56,7 +56,9 @@ export default class DoctorList extends Component {
                     city: child.val().city,
                     state: child.val().state,
                     zipcode: child.val().zipcode,
-
+                    slot1 : child.val().slot1,
+                    slot2 : child.val().slot2,
+                    slot3 : child.val().slot3,
                 });
             });
             this.setState({ arrData : items });

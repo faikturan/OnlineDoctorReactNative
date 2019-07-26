@@ -67,6 +67,10 @@ export default class MakeAppointment extends Component {
         
     }
 
+    componentDidMount() {
+        console.log(this.props.navigation.state.params.timeslot);
+    }
+
     render() {
         let _this = this
         const slots = jsonData.slots

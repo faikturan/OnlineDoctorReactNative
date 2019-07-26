@@ -47,6 +47,7 @@ export default class DoctorDetail extends Component {
             zipcode : '',
             provider : '',
             images : '',
+            data : [],
         };
     }
 
@@ -73,6 +74,12 @@ export default class DoctorDetail extends Component {
     // }
 
     componentDidMount() {
+        var datas = [];
+        datas.push({
+            slot1 : this.props.navigation.state.params.data.slot1,
+            slot2 : this.props.navigation.state.params.data.slot2,
+            slot3 : this.props.navigation.state.params.data.slot3,
+        });
         this.setState ({
             firstname : this.props.navigation.state.params.data.firstname,
             lastname : this.props.navigation.state.params.data.lastname,
@@ -92,58 +99,77 @@ export default class DoctorDetail extends Component {
             zipcode : this.props.navigation.state.params.data.zipcode,
             provider : this.props.navigation.state.params.data.provider,
             images : this.props.navigation.state.params.data.image,
+            data : datas,
         });
         console.log(this.props.navigation.state.params.data);
     }
 
     render() {
 
-        console.log(this.state.images);
-        console.log(this.state.firstname);
+        console.log(this.state.data);
         return (
             <SafeAreaView style={{ flex:1 }}>
-                <View style={{ height: this.startHeaderHeight }}>
-                    <View style={ styles.header}>
-                        <Icon 
-                        name="ios-arrow-back" 
-                        size={25}
-                        onPress ={() => this.props.navigation.navigate('DoctorList')}
-                        />
-                        <View style={{ flex: 1, paddingRight: 10 }}>
-                            <Text style={styles.headertext}>About {this.state.title} {this.state.firstname} {this.state.lastname}</Text>
-                        </View>
-                    </View>
-                </View>
-                <View style={{ flex:1 }}>
-                    <View style={styles.Container}>
-                        <Image
-                            source= {{ url: this.state.images }}
-                        />
-                        <Text style={styles.name}>
-                            {this.state.title} {this.state.firstname} {this.state.lastname}
-                        </Text>
-                        <Text style={styles.specialty}>
-                            Specialty : {this.state.specialty}
-                        </Text>
-                        <Text style={styles.language}>
-                            (Language : {this.state.language})
-                        </Text>
-                    </View>
-                    <View style={{ flex:1/2 }}>
-                        <ScrollView scrollEventThrottle={16}>
-                            <ScrollView vertical={true}
-                            showsVerticalScrollIndicator={true}>
-                                <View style={styles.gap}>
-
+                <ScrollView scrollEventThrottle={16}>
+                    <ScrollView vertical={true}
+                        showsVerticalScrollIndicator={true}>
+                        <View style={{ height: this.startHeaderHeight }}>
+                            <View style={ styles.header}>
+                                <Icon 
+                                name="ios-arrow-back" 
+                                size={25}
+                                onPress ={() => this.props.navigation.navigate('DoctorList')}
+                                />
+                                <View style={{ flex: 1, paddingRight: 10 }}>
+                                    <Text style={styles.headertext}>About {this.state.title} {this.state.firstname} {this.state.lastname}</Text>
                                 </View>
-                                <View style={styles.backgound_container}>
-                                    <Text style={styles.backgound_text}>
+                            </View>
+                        </View>
+                        <View style={{ flex:1 }}>
+                            <View style={styles.Container}>
+                                <Image
+                                    style={{width: 100, height: 100}}
+                                    source= {{ uri: this.state.images }}
+                                />
+                                <Text style={styles.name}>
+                                    {this.state.title} {this.state.firstname} {this.state.lastname}
+                                </Text>
+                                <Text style={styles.specialty}>
+                                    Specialty : {this.state.specialty}
+                                </Text>
+                                <Text style={styles.language}>
+                                    (Language : {this.state.language})
+                                </Text>
+                            </View>
+                            <View style={styles.gap}>
+                            </View>
+                            <View style={{ flex:1/2 }}>
+                                <View style={styles.backgound_header_container}>
+                                    <Text style={styles.backgound_header_text}>
                                         BACKGOUND
                                     </Text>
                                 </View>
-                            </ScrollView>
-                        </ScrollView>
-                    </View>
+                                <View style={styles.backgound_container}>
+                                    <Text style={styles.backgound_text}>
+                                        {this.state.background1}
+                                    </Text>
+                                    <Text style={styles.backgound_text}>
+                                        {this.state.background2}
+                                    </Text>
+                                    <Text style={styles.backgound_text}>
+                                        {this.state.background3}
+                                    </Text>
+                                </View>
+                            </View>
+                        </View>
+                    </ScrollView>
+                </ScrollView>
+                <View style={styles.bottom}>
+                    <TouchableOpacity
+                        style={styles.customBtnBG}
+                        onPress = {() => this.props.navigation.navigate('MakeAppointment', { timeslot: this.state.data })} 
+                    >
+                    <Text>Check Availability</Text>
+                    </TouchableOpacity>
                 </View>
             </SafeAreaView>
         )
@@ -196,16 +222,29 @@ const styles = StyleSheet.create({
         textAlign:'center',
         marginTop: 10,
         paddingTop: 10,
+        paddingBottom : 10,
     },
     gap : {
         height : 10,
         backgroundColor : 'grey'
     },
-    backgound_container : {
+    backgound_header_container : {
         height : 50,
         padding : 10,
         backgroundColor : 'white',
         borderBottomColor : 'grey'
+    },
+    backgound_header_text : {
+        fontSize: 15, 
+        fontWeight: '300', 
+        paddingLeft : 10,
+        paddingTop: 10,
+        marginHorizontal: 10,
+        color: 'black'
+    },
+    backgound_container : {
+        color : '#92DFF3',
+        padding : 10,
     },
     backgound_text : {
         fontSize: 15, 
@@ -214,5 +253,21 @@ const styles = StyleSheet.create({
         paddingTop: 10,
         marginHorizontal: 10,
         color: 'black'
+    },
+    bottom: {
+        flex: 1,
+        justifyContent: 'flex-end',
+        marginBottom: 10,
+        borderTopWidth : 2,
+        borderBottomWidth : 2,
+        borderEndWidth : 2,
+        borderLeftWidth : 2,
+        borderRightWidth : 2
+    },
+    customBtnBG: {
+        backgroundColor: "#fff",
+        paddingHorizontal: 30,
+        paddingVertical: 10,
+        borderRadius: 30
     }
 })
