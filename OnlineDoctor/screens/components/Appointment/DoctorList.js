@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, Button, Dimensions, ScrollView, FlatList } from 'react-native';
+import { StyleSheet, Text, View, Button, Dimensions, ScrollView, FlatList, TouchableOpacity } from 'react-native';
 import firebase from 'firebase';
 import { SafeAreaView } from 'react-navigation';
 import Icon from 'react-native-vector-icons/Ionicons';
@@ -48,6 +48,15 @@ export default class DoctorList extends Component {
                     language : child.val().language,
                     title : child.val().title,
                     image : child.val().image,
+                    background1: child.val().background1,
+                    background2: child.val().background2,
+                    background3: child.val().background3,
+                    address1: child.val().address1,
+                    address2: child.val().address2,
+                    city: child.val().city,
+                    state: child.val().state,
+                    zipcode: child.val().zipcode,
+
                 });
             });
             this.setState({ arrData : items });
@@ -58,11 +67,17 @@ export default class DoctorList extends Component {
     keyExtractor = (item, index) => index.toString()
 
     renderItem = ({ item }) => (
-        <ListItem
-            leftAvatar={{ source: { uri: item.image }}}
-            title={ item.title + ' ' + item.firstname + ' ' + item.lastname }
-            subtitle= { item.specialty }
-        />
+        <TouchableOpacity onPress={() => this.props.navigation.navigate('DoctorDetail', { data: item } )}> 
+            <ListItem style={{flex:1, height:100}}
+                leftAvatar={{ rounded: true, source: { uri: item.image }}}
+                title={ item.title + ' ' + item.firstname + ' ' + item.lastname }
+                subtitle= { item.specialty }
+                subtitleStyle= {{fontSize: 20}}
+                titleStyle={{ color: 'black', fontWeight: 'bold', fontSize: 30 }}
+                chevronColor="black"
+                chevron
+            />
+        </TouchableOpacity>
     )
 
     render() {
@@ -75,7 +90,9 @@ export default class DoctorList extends Component {
                         size={25}
                         onPress ={() => this.props.navigation.navigate('Appointment')}
                         />
-                        <Text style={styles.headertext}>Select a doctor</Text>
+                        <View style={{ flex: 1, paddingRight: 10 }}>
+                            <Text style={styles.headertext}>Select a doctor</Text>
+                        </View>
                     </View>
                 </View>
                 <View style={{ flex:1 }}>
@@ -110,7 +127,6 @@ const styles = StyleSheet.create({
     headertext: {
         fontSize: 22, 
         fontWeight: '500', 
-        width: '75%', 
-        justifyContent: 'space-between'
+        textAlign:'center'
     },
 })

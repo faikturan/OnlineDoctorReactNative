@@ -257,7 +257,9 @@ export default class Account extends Component {
                   size={25}
                   onPress ={() => this.props.navigation.navigate('Profile')}
                 />
-                <Text style={styles.headertext}>Account</Text>
+                <View style={{ flex: 1, paddingRight: 10 }}>
+                  <Text style={styles.headertext}>Account</Text>
+                </View>
             </View>
           </View>
           <Text style={styles.title}>
@@ -379,10 +381,9 @@ const styles = StyleSheet.create({
     marginTop: Platform.OS == 'android' ? 30 : null
   },
   headertext: {
-      fontSize: 22, 
-      fontWeight: '500', 
-      width: '65%', 
-      justifyContent: 'space-between'
+    fontSize: 22, 
+    fontWeight: '500', 
+    textAlign:'center'
   },
   textinput: {
     height: 40, 

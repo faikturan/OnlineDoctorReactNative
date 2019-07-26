@@ -84,7 +84,9 @@ export default class MakeAppointment extends Component {
                         size={25}
                         onPress ={() => this.props.navigation.navigate('Appointment')}
                         />
-                        <Text style={styles.headertext}>Make Appointment</Text>
+                        <View style={{ flex: 1, paddingRight: 10 }}>
+                            <Text style={styles.headertext}>Make Appointment</Text>
+                        </View>
                     </View>
                 </View>
                 <View style={{ flex:1 }}>
@@ -135,8 +137,7 @@ const styles = StyleSheet.create({
     headertext: {
         fontSize: 22, 
         fontWeight: '500', 
-        width: '75%', 
-        justifyContent: 'space-between'
+        textAlign:'center'
     },
     textinput: {
         height: 40, 

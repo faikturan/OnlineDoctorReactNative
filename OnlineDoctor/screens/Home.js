@@ -24,9 +24,11 @@ class Home extends Component {
               <View style={{ height: this.startHeaderHeight }}>
                   <View style={ styles.header}>
                       <Icon name="ios-chatboxes" size={25} />
-                      <Text style={styles.homeText}>
-                          Home
-                      </Text>
+                      <View style={{ flex: 1, paddingRight: 10 }}>
+                        <Text style={styles.headertext}>
+                            Home
+                        </Text>
+                      </View>
                   </View>
               </View>
                {/* scrollEventThrottle: This controls how often the scroll event will 
@@ -67,11 +69,10 @@ const styles = StyleSheet.create({
         elevation: 1, 
         marginTop: Platform.OS == 'android' ? 30 : null
     },
-    homeText: {
+    headertext: {
         fontSize: 22, 
         fontWeight: '500', 
-        width: '60%', 
-        justifyContent: 'space-between'
-    }
+        textAlign:'center'
+    },
   });
   
