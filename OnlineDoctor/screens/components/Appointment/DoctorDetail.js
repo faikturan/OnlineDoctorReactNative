@@ -76,13 +76,6 @@ export default class DoctorDetail extends Component {
     componentDidMount() {
         var datas = [];
         datas.push({
-            monday : this.props.navigation.state.params.data.monday,
-            tuesday : this.props.navigation.state.params.data.tuesday,
-            wednesday : this.props.navigation.state.params.data.wednesday,
-            thursday : this.props.navigation.state.params.data.thursday,
-            friday : this.props.navigation.state.params.data.friday,
-            saturday : this.props.navigation.state.params.data.saturday,
-            sunday : this.props.navigation.state.params.data.sunday,
         });
         this.setState ({
             firstname : this.props.navigation.state.params.data.firstname,

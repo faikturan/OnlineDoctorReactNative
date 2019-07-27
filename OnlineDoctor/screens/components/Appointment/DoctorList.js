@@ -55,13 +55,6 @@ export default class DoctorList extends Component {
                     address2: child.val().address2,
                     city: child.val().city,
                     state: child.val().state,
-                    monday: child.val().monday,
-                    tuesday : child.val().tuesday,
-                    wednesday : child.val().wednesday,
-                    thursday : child.val().thursday,
-                    friday : child.val().friday,
-                    saturday : child.val().saturday,
-                    sunday : child.val().sunday
                 });
             });
             this.setState({ arrData : items });
