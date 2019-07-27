@@ -4,7 +4,6 @@ import firebase from 'firebase';
 import { SafeAreaView } from 'react-navigation';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { Calendar, CalendarList, Agenda} from 'react-native-calendars';
-import Animbutton from './Animbutton';
 
 
 var config = {
@@ -22,27 +21,6 @@ firebase.initializeApp(config);
 
 const { width } = Dimensions.get('window');
 
-const jsonData = { "slots" : {
-    "slot1" :   "9:00am to 9:30am",
-    "slot2" :   "9:30am to 10:00am",
-    "slot3" :   "10:00am to 10:30am",
-    "slot4" :   "10:30am to 11:00am",
-    "slot5" :   "11:00am to 11:30am",
-    "slot6" :   "11:30am to 12:00pm",
-    "slot7" :   "12:00pm to 12:30am",
-    "slot8" :   "12:30pm to 1:00pm",
-    "slot9" :   "1:00pm to 1:30pm",
-    "slot10" :  "1:30pm to 2:00pm",
-    "slot11" :  "2:00pm to 2:30pm",
-    "slot12" :  "2:30pm to 3:00pm",
-    "slot13" :  "3:00pm to 3:30pm",
-    "slot14" :  "3:30pm to 4:00pm",
-    "slot15" :  "4:00pm to 4:30am",
-    "slot16" :  "4:30pm to 5:00am",
-    "slot17" :  "5:00pm to 5:30am",
-    "slot18" :  "5:00pm to 6:00am",
-}}
-
 export default class MakeAppointment extends Component {
 
     constructor(props) {
@@ -50,35 +28,42 @@ export default class MakeAppointment extends Component {
         this.state = {};
         this.onDayPress = this.onDayPress.bind(this);
         this.bookingDate = '';
+        this.state.showTimeslotList = false;
     }
 
     onDayPress(day) {
         this.setState({
             selected : day.dateString,
-            bookingDate : day
+            bookingDate : day,
+            showTimeslotList: true
         });
+        console.log(day)
         // this.props.navigation.navigate('Slot', { bookingDate : day });
     }
 
     _bookSlot(status, key, value) {
         const month = this.state.bookingDate.month
         const date = this.state.bookingDate.day
-        const email = firebase.auth().currentUser
-        
+        const email = firebase.auth().currentUser 
     }
 
+    // keyExtractor = (item, index) => index.toString()
+
+    // renderItem = ({ item }) => (
+    // <ListItem
+    //     Component={TouchableScale}
+    //     title={item.name}
+    //     chevronColor="white"
+    //     chevron
+    // />
+    // )
+
+
     componentDidMount() {
-        console.log(this.props.navigation.state.params.timeslot);
+        // console.log(this.props.navigation.state.params.timeslot);
     }
 
     render() {
-        let _this = this
-        const slots = jsonData.slots
-        const slotsarr = Object.keys(slots).map( function(k) {
-        return (  <View key={k} style={{margin:5}}>
-                    <Animbutton countCheck={0} onColor={"green"} effect={"pulse"} _onPress={(status) => _this._bookSlot(status,k,slots[k]) } text={slots[k]} />
-                    </View>)
-        });
         return (
             <SafeAreaView style={{ flex:1 }}>
                 <View style={{ height: this.startHeaderHeight }}>
@@ -98,7 +83,7 @@ export default class MakeAppointment extends Component {
                         style={styles.calendar}
                         horizontal = {true}
                         pagingEnabled = {true}
-                        CalendarWidth={320}
+                        CalendarWidth={width - 10}
                         current={this.state.default}
                         onDayPress= { this.onDayPress }
                         hideExtraDays
@@ -114,7 +99,14 @@ export default class MakeAppointment extends Component {
                     <ScrollView scrollEventThrottle={16}>
                         <ScrollView vertical={true}
                         showsVerticalScrollIndicator={true}>
-                            { slotsarr }
+                            { this.state.isPastListVisible ? 
+                                <View hide={this.state.showTimeslotList}>
+                                    <Text>
+                                    Past
+                                    </Text>
+                                </View>
+                                : null
+                            }
                         </ScrollView>
                     </ScrollView>
                 </View>

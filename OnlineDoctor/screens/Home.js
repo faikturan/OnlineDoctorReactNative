@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, SafeAreaView, ScrollView, Platform, StatusBar } from 'react-native';
+import { StyleSheet, Text, View, SafeAreaView, ScrollView, Platform, StatusBar, Dimensions } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons'
 
 import Category from './components/Home/Category';
 
+const { width } = Dimensions.get('window');
 
 class Home extends Component {
 
@@ -34,7 +35,7 @@ class Home extends Component {
                {/* scrollEventThrottle: This controls how often the scroll event will 
                be fired while scrolling (as a time interval in ms). */}
               <ScrollView scrollEventThrottle={16}>
-                  <View style={{ height: 250, marginTop: 50 }}>
+                  <View style={{ height: 250, marginTop: 50, width: width - 20 }}>
                       <ScrollView horizontal={true}
                       showsHorizontalScrollIndicator={false}>
                           <Category imageUri={require('../assets/home.jpg')}/>

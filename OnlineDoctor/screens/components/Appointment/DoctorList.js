@@ -55,10 +55,13 @@ export default class DoctorList extends Component {
                     address2: child.val().address2,
                     city: child.val().city,
                     state: child.val().state,
-                    zipcode: child.val().zipcode,
-                    slot1 : child.val().slot1,
-                    slot2 : child.val().slot2,
-                    slot3 : child.val().slot3,
+                    monday: child.val().monday,
+                    tuesday : child.val().tuesday,
+                    wednesday : child.val().wednesday,
+                    thursday : child.val().thursday,
+                    friday : child.val().friday,
+                    saturday : child.val().saturday,
+                    sunday : child.val().sunday
                 });
             });
             this.setState({ arrData : items });

@@ -76,9 +76,13 @@ export default class DoctorDetail extends Component {
     componentDidMount() {
         var datas = [];
         datas.push({
-            slot1 : this.props.navigation.state.params.data.slot1,
-            slot2 : this.props.navigation.state.params.data.slot2,
-            slot3 : this.props.navigation.state.params.data.slot3,
+            monday : this.props.navigation.state.params.data.monday,
+            tuesday : this.props.navigation.state.params.data.tuesday,
+            wednesday : this.props.navigation.state.params.data.wednesday,
+            thursday : this.props.navigation.state.params.data.thursday,
+            friday : this.props.navigation.state.params.data.friday,
+            saturday : this.props.navigation.state.params.data.saturday,
+            sunday : this.props.navigation.state.params.data.sunday,
         });
         this.setState ({
             firstname : this.props.navigation.state.params.data.firstname,
@@ -120,7 +124,7 @@ export default class DoctorDetail extends Component {
                                 onPress ={() => this.props.navigation.navigate('DoctorList')}
                                 />
                                 <View style={{ flex: 1, paddingRight: 10 }}>
-                                    <Text style={styles.headertext}>About {this.state.title} {this.state.firstname} {this.state.lastname}</Text>
+                                    <Text style={styles.headertext}>Medical Doctor Bio</Text>
                                 </View>
                             </View>
                         </View>
