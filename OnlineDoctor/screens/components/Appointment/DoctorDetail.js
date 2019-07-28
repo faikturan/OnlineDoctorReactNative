@@ -21,6 +21,7 @@ firebase.initializeApp(config);
 };
 
 const rootRef = firebase.database().ref();
+const accountRef = rootRef.child('Provider');
 // const providerRef = rootRef.child('Provider');
 
 export default class DoctorDetail extends Component {
@@ -47,7 +48,7 @@ export default class DoctorDetail extends Component {
             zipcode : '',
             provider : '',
             images : '',
-            data : [],
+            timeslot : [],
         };
     }
 
@@ -74,9 +75,6 @@ export default class DoctorDetail extends Component {
     // }
 
     componentDidMount() {
-        var datas = [];
-        datas.push({
-        });
         this.setState ({
             firstname : this.props.navigation.state.params.data.firstname,
             lastname : this.props.navigation.state.params.data.lastname,
@@ -96,14 +94,31 @@ export default class DoctorDetail extends Component {
             zipcode : this.props.navigation.state.params.data.zipcode,
             provider : this.props.navigation.state.params.data.provider,
             images : this.props.navigation.state.params.data.image,
-            data : datas,
         });
-        console.log(this.props.navigation.state.params.data);
+        var array = [];
+        array.push({
+            fn : this.props.navigation.state.params.data.firstname,
+            ln : this.props.navigation.state.params.data.lastname
+        });
+        this.setState ({
+            timeslot : array
+        });
     }
 
-    render() {
+    keyExtractor = (item, index) => index.toString()
 
-        console.log(this.state.data);
+    renderItem = ({ item }) => (
+        <TouchableOpacity onPress={() => this.props.navigation.navigate('MakeAppointment', { fn: this.state.firstname, ln: this.state.lastname } )}> 
+            <ListItem style={{flex:1, height:100}}
+                title={ 'Check Availability' }
+                titleStyle={{ color: 'black', fontWeight: 'bold', fontSize: 30, textAlign: "center" }}
+                chevronColor="black"
+                chevron
+            />
+        </TouchableOpacity>
+    )
+
+    render() {
         return (
             <SafeAreaView style={{ flex:1 }}>
                 <ScrollView scrollEventThrottle={16}>
@@ -161,12 +176,11 @@ export default class DoctorDetail extends Component {
                     </ScrollView>
                 </ScrollView>
                 <View style={styles.bottom}>
-                    <TouchableOpacity
-                        style={styles.customBtnBG}
-                        onPress = {() => this.props.navigation.navigate('MakeAppointment', { timeslot: this.state.data })} 
-                    >
-                    <Text>Check Availability</Text>
-                    </TouchableOpacity>
+                    <FlatList
+                        keyExtractor={this.keyExtractor}
+                        data={this.state.timeslot}
+                        renderItem={this.renderItem}
+                    />
                 </View>
             </SafeAreaView>
         )
@@ -254,7 +268,7 @@ const styles = StyleSheet.create({
     bottom: {
         flex: 1,
         justifyContent: 'flex-end',
-        marginBottom: 10,
+        marginBottom: 12,
         borderTopWidth : 2,
         borderBottomWidth : 2,
         borderEndWidth : 2,

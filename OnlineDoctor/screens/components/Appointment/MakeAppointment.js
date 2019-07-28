@@ -5,7 +5,6 @@ import { SafeAreaView } from 'react-navigation';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { Calendar, CalendarList, Agenda} from 'react-native-calendars';
 
-
 var config = {
     apiKey: "AIzaSyDCozJ--F6g1nGzsxstmGXAm0Tfe39LVrc",
     authDomain: "onlinedoctorproject.firebaseapp.com",
@@ -19,13 +18,18 @@ if (!firebase.apps.length) {
 firebase.initializeApp(config);
 };
 
+const rootRef = firebase.database().ref();
+
 const { width } = Dimensions.get('window');
 
 export default class MakeAppointment extends Component {
 
     constructor(props) {
         super(props);
-        this.state = {};
+        this.state = {
+            firstname_selected: '',
+            lastname_selected: '',
+        };
         this.onDayPress = this.onDayPress.bind(this);
         this.bookingDate = '';
         this.state.showTimeslotList = false;
@@ -37,7 +41,12 @@ export default class MakeAppointment extends Component {
             bookingDate : day,
             showTimeslotList: true
         });
-        console.log(day)
+        var query = rootRef.child('Appointment/' + this.state.firstname_selected + this.state.lastname_selected + '/' + this.state.selected);
+        query.once('value', (snapshot) => {
+            var items = [];
+            items = snapshot.val();
+        });
+        console.log('Appointment/' + this.state.firstname_selected + this.state.lastname_selected + '/' + this.state.bookingDate);
         // this.props.navigation.navigate('Slot', { bookingDate : day });
     }
 
@@ -60,7 +69,14 @@ export default class MakeAppointment extends Component {
 
 
     componentDidMount() {
-        // console.log(this.props.navigation.state.params.timeslot);
+        var firstname = this.props.navigation.state.params.fn;
+        var firstname_lc = firstname.toLowerCase();
+        var lastname = this.props.navigation.state.params.ln;
+        var lastname_lc = lastname.toLowerCase();
+        this.setState({
+            firstname_selected : firstname_lc,
+            lastname_selected : lastname_lc
+        })
     }
 
     render() {

@@ -58,7 +58,6 @@ export default class DoctorList extends Component {
                 });
             });
             this.setState({ arrData : items });
-            console.log(this.state.arrData);
         });
     };
 
