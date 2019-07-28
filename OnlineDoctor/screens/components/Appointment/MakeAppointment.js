@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, Button, Dimensions, ScrollView } from 'react-native';
+import { StyleSheet, Text, View, Button, Dimensions, ScrollView, FlatList, TouchableOpacity } from 'react-native';
 import firebase from 'firebase';
 import { SafeAreaView } from 'react-navigation';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { Calendar, CalendarList, Agenda} from 'react-native-calendars';
+import { ListItem } from 'react-native-elements';
 
 var config = {
     apiKey: "AIzaSyDCozJ--F6g1nGzsxstmGXAm0Tfe39LVrc",
@@ -29,10 +30,11 @@ export default class MakeAppointment extends Component {
         this.state = {
             firstname_selected: '',
             lastname_selected: '',
+            array : [],
+            showTimeslotList : false
         };
         this.onDayPress = this.onDayPress.bind(this);
         this.bookingDate = '';
-        this.state.showTimeslotList = false;
     }
 
     onDayPress(day) {
@@ -41,12 +43,19 @@ export default class MakeAppointment extends Component {
             bookingDate : day,
             showTimeslotList: true
         });
-        var query = rootRef.child('Appointment/' + this.state.firstname_selected + this.state.lastname_selected + '/' + this.state.selected);
+        var query = rootRef.child('Appointment/' + this.state.firstname_selected + this.state.lastname_selected + '/' + day.dateString);
         query.once('value', (snapshot) => {
             var items = [];
-            items = snapshot.val();
+            snapshot.forEach((child) => {
+            // items = snapshot.val();
+                items.push({
+                    name : child.val().name,
+                    slot : child.val().slot
+                });
+            });
+            this.setState({ array : items });
+            console.log(items);
         });
-        console.log('Appointment/' + this.state.firstname_selected + this.state.lastname_selected + '/' + this.state.bookingDate);
         // this.props.navigation.navigate('Slot', { bookingDate : day });
     }
 
@@ -56,16 +65,17 @@ export default class MakeAppointment extends Component {
         const email = firebase.auth().currentUser 
     }
 
-    // keyExtractor = (item, index) => index.toString()
+    keyExtractor = (item, index) => index.toString()
 
-    // renderItem = ({ item }) => (
-    // <ListItem
-    //     Component={TouchableScale}
-    //     title={item.name}
-    //     chevronColor="white"
-    //     chevron
-    // />
-    // )
+    renderItem = ({ item }) => (
+    <TouchableOpacity onPress={() => this.props.navigation.navigate('Appointment')}> 
+        <ListItem
+            title={item.slot}
+            chevronColor="black"
+            chevron
+        />
+    </TouchableOpacity>
+    )
 
 
     componentDidMount() {
@@ -115,11 +125,13 @@ export default class MakeAppointment extends Component {
                     <ScrollView scrollEventThrottle={16}>
                         <ScrollView vertical={true}
                         showsVerticalScrollIndicator={true}>
-                            { this.state.isPastListVisible ? 
+                            { this.state.showTimeslotList ? 
                                 <View hide={this.state.showTimeslotList}>
-                                    <Text>
-                                    Past
-                                    </Text>
+                                    <FlatList
+                                        keyExtractor={this.keyExtractor}
+                                        data={this.state.array}
+                                        renderItem={this.renderItem}
+                                    />
                                 </View>
                                 : null
                             }
