@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { StyleSheet, Text, View, Button, Dimensions, ScrollView, FlatList, TouchableOpacity } from 'react-native';
 import firebase from 'firebase';
 import { SafeAreaView } from 'react-navigation';
+import Iconn from 'react-native-vector-icons/AntDesign';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { Calendar, CalendarList, Agenda} from 'react-native-calendars';
 import { ListItem } from 'react-native-elements';
@@ -50,7 +51,10 @@ export default class MakeAppointment extends Component {
             // items = snapshot.val();
                 items.push({
                     name : child.val().name,
-                    slot : child.val().slot
+                    slot : child.val().slot,
+                    date : day.dateString,
+                    firstname : this.state.firstname_selected,
+                    lastname : this.state.lastname_selected,
                 });
             });
             this.setState({ array : items });
@@ -68,11 +72,17 @@ export default class MakeAppointment extends Component {
     keyExtractor = (item, index) => index.toString()
 
     renderItem = ({ item }) => (
-    <TouchableOpacity onPress={() => this.props.navigation.navigate('Appointment')}> 
-        <ListItem
+    <TouchableOpacity onPress={() => this.props.navigation.navigate('Confirm', { data: item })}> 
+        <ListItem style={{flex:1, height:100}}
             title={item.slot}
             chevronColor="black"
             chevron
+            leftIcon={ 
+                <Iconn 
+                    name="calendar" 
+                    size={25}
+                /> 
+            }
         />
     </TouchableOpacity>
     )
@@ -86,7 +96,7 @@ export default class MakeAppointment extends Component {
         this.setState({
             firstname_selected : firstname_lc,
             lastname_selected : lastname_lc
-        })
+        });
     }
 
     render() {

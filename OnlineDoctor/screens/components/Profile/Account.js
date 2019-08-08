@@ -71,7 +71,6 @@ export default class Account extends Component {
     var query = accountRef.orderByChild('email').equalTo(email);
     query.once('value', (snapshot) => {
       snapshot.forEach((child) => {
-        // var firstname_display = child.val().firstname;
         this.setState({
           firstname : child.val().firstname,
           lastname : child.val().lastname,
@@ -87,9 +86,6 @@ export default class Account extends Component {
           servicecode : child.val().servicecode,
           username : child.val().username
         })
-        // console.log(firstname_display);
-        console.log(this.state.firstname);
-        console.log(this.state.zipcode);
       });
     }).catch((error) => {
       console.log(error);

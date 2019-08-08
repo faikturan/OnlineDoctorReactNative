@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { StyleSheet, Text, View, Button, Dimensions } from 'react-native';
 import { SafeAreaView } from 'react-navigation';
 import Icon from 'react-native-vector-icons/Ionicons';
-import Icon1 from 'react-native-vector-icons/Feather';
+import Iconn from 'react-native-vector-icons/AntDesign';
 
 const { width, height } = Dimensions.get('window')
 
@@ -40,8 +40,8 @@ class Appointment extends Component {
               <Text style={styles.homeText}>
                   Appointment
               </Text>
-              <Icon1 
-                name="plus" 
+              <Iconn 
+                name="pluscircleo" 
                 size={25} 
                 onPress ={() => this.props.navigation.navigate('DoctorList')}
               />
