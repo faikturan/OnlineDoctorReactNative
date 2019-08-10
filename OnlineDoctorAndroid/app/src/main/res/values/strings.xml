@@ -1,3 +1,28 @@
 <resources>
     <string name="app_name">OnlineDoctor</string>
+    <string name="account_login">Account login</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="login">Login</string>
+    <string name="register_new_account">Register new account</string>
+    <string name="register">Register</string>
+    <string name="new_user_to_onlinedoctor">New User to OnlineDoctor?</string>
+    <string name="already_user">Already a user in OnlineDoctor?</string>
+    <string name="go_to_login">Click to Login</string>
+    <string name="home">Home</string>
+    <string name="pharmacy">Pharmacy</string>
+    <string name="appointment">Appointment</string>
+    <string name="account">Account</string>
+    <string name="home_fragment">Home Fragment</string>
+    <string name="pharmacy_fragment">Pharmacy Fragment</string>
+    <string name="appointment_fragment">Appointment Fragment</string>
+    <string name="account_fragment">Account Fragment</string>
+    <string name="previous_appointment">Previous</string>
+    <string name="upcoming_appointment">Upcoming</string>
+    <string name="add_new_appointment">Book a new appointment</string>
+    <string name="space"> </string>
+    <string name="provider_detail_description">Board-Certified, Family Medicine</string>
+    <string name="provider_detail_language">(Language : English)</string>
+    <string name="provider_detail_background">BACKGROUND</string>
+    <string name="provider_detail_button">View Availability</string>
 </resources>

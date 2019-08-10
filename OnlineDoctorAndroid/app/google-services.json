@@ -53,12 +53,49 @@
     },
     {
       "client_info": {
+        "mobilesdk_app_id": "1:298997965467:android:3a987fd1b1bf504c",
+        "android_client_info": {
+          "package_name": "com.onlinedoctor.com"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "298997965467-a90tf1rdep68v2d6ur2othjdq04rsqr4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDxTBLrmNG5wFleo5sWk8PGK4uHrEIIvCs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "298997965467-a90tf1rdep68v2d6ur2othjdq04rsqr4.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
         "mobilesdk_app_id": "1:298997965467:android:11725fb5facefdfd",
         "android_client_info": {
           "package_name": "com.onlinedotor.com.onlinedoctor"
         }
       },
       "oauth_client": [
+        {
+          "client_id": "298997965467-csrda03rtc0qakuu4458umi8jddu49j8.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.onlinedotor.com.onlinedoctor",
+            "certificate_hash": "06d3ff43a19583c18f7584f282cddd80ccc076e8"
+          }
+        },
         {
           "client_id": "298997965467-87h2l3j3enb7v5ld8c9vvln108imbpgf.apps.googleusercontent.com",
           "client_type": 1,

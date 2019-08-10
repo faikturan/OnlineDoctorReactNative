@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/nav_home"
+        android:icon="@drawable/ic_home_black_24dp"
+        android:title="@string/home"
+        />
+
+    <item
+        android:id="@+id/nav_pharmacy"
+        android:icon="@drawable/ic_local_pharmacy_black_24dp"
+        android:title="@string/pharmacy"
+        />
+
+
+    <item
+        android:id="@+id/nav_appointment"
+        android:icon="@drawable/ic_date_range_black_24dp"
+        android:title="@string/appointment"
+        />
+
+
+    <item
+        android:id="@+id/nav_account"
+        android:icon="@drawable/ic_account_circle_black_24dp"
+        android:title="@string/account"
+        />
+</menu>
