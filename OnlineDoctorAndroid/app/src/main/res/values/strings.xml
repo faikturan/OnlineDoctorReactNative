@@ -25,4 +25,7 @@
     <string name="provider_detail_language">(Language : English)</string>
     <string name="provider_detail_background">BACKGROUND</string>
     <string name="provider_detail_button">View Availability</string>
+    <string name="select_day">Please select a day</string>
+    <string name="confirm_date">Confirm selected date</string>
+    <string name="title_activity_maps">Map</string>
 </resources>

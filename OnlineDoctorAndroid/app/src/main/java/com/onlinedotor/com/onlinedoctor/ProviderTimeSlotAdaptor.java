@@ -4,15 +4,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.RecyclerView.ViewHolder;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
-
-import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -31,13 +26,23 @@ public class ProviderTimeSlotAdaptor extends RecyclerView.Adapter<ProviderTimeSl
     @NonNull
     @Override
     public ProviderTimeSlotViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new ProviderTimeSlotViewHolder(LayoutInflater.from(context).inflate(R.layout.provider_timeslot_item, parent,false));
+        return new ProviderTimeSlotViewHolder(LayoutInflater.from(context).inflate(R.layout.activity_provider_timeslot_item, parent,false));
     }
 
     @Override
     public void onBindViewHolder(@NonNull final ProviderTimeSlotViewHolder holder, final int position) {
         holder.provider_timeslots.setText(provider_time_slot.get(position).getSlot());
 
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String ClickedProviderTimeSlot = provider_time_slot.get(position).getSlot();
+
+                Intent intent = new Intent(view.getContext(), AppointmentConfirmationActivity.class);
+                intent.putExtra("ClickedProviderTimeSlot", ClickedProviderTimeSlot);
+                view.getContext().startActivity(intent);
+            }
+        });
 
     }
 

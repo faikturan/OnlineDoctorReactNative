@@ -1,5 +1,6 @@
 package com.onlinedotor.com.onlinedoctor;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -7,6 +8,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.CalendarView;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -32,6 +34,7 @@ public class ProviderTimeSlotActivity extends AppCompatActivity {
     private String fullname;
     private String date;
     private String empty = "";
+    private String slot;
 
     private static final String TAG = "ProviderTimeSlotActivity";
     private CalendarView mCalendarView;
@@ -66,30 +69,30 @@ public class ProviderTimeSlotActivity extends AppCompatActivity {
                 }
                 Log.d(TAG, "Value: " + date);
                 Log.d(TAG, "Value: " + fullname);
-            }
-        });
 
-        Log.d(TAG, "Value: " + "Hello111");
-        recyclerView = (RecyclerView) findViewById(R.id.timeslot_recycler);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        lists = new ArrayList<Provider_TimeSlot>();
-
-        reference = FirebaseDatabase.getInstance().getReference().child("Appointment/" + fullname + '/' + date);
-        reference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                recyclerView = (RecyclerView) findViewById(R.id.timeslot_recycler);
+                recyclerView.setLayoutManager(new LinearLayoutManager(ProviderTimeSlotActivity.this));
                 lists = new ArrayList<Provider_TimeSlot>();
-                for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
-                    Provider_TimeSlot pts = dataSnapshot1.getValue(Provider_TimeSlot.class);
-                    lists.add(pts);
-                }
-                timeslot_adaptor = new ProviderTimeSlotAdaptor(ProviderTimeSlotActivity.this, lists);
-                recyclerView.setAdapter(timeslot_adaptor);
-            }
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-                Toast.makeText(ProviderTimeSlotActivity.this, "Opsss.... Something is wrong", Toast.LENGTH_SHORT).show();
+                reference = FirebaseDatabase.getInstance().getReference().child("Appointment/" + fullname + '/' + date);
+                Log.d(TAG, "Value: " + "Appointment/" + fullname + '/' + date);
+                reference.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        lists = new ArrayList<Provider_TimeSlot>();
+                        for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
+                            Provider_TimeSlot pts = dataSnapshot1.getValue(Provider_TimeSlot.class);
+                            lists.add(pts);
+                        }
+                        timeslot_adaptor = new ProviderTimeSlotAdaptor(ProviderTimeSlotActivity.this, lists);
+                        recyclerView.setAdapter(timeslot_adaptor);
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+                        Toast.makeText(ProviderTimeSlotActivity.this, "Opsss.... Something is wrong", Toast.LENGTH_SHORT).show();
+                    }
+                });
             }
         });
     }
