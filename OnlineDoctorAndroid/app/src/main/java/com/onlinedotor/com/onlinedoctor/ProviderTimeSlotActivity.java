@@ -24,13 +24,14 @@ public class ProviderTimeSlotActivity extends AppCompatActivity {
 
     DatabaseReference reference;
     RecyclerView recyclerView;
-    ArrayList<Provider_TimeSlot> list;
-    ProviderTimeSlotAdaptor adaptor;
+    ArrayList<Provider_TimeSlot> lists;
+    ProviderTimeSlotAdaptor timeslot_adaptor;
 
     private String firstname;
     private String lastname;
     private String fullname;
     private String date;
+    private String empty = "";
 
     private static final String TAG = "ProviderTimeSlotActivity";
     private CalendarView mCalendarView;
@@ -47,7 +48,6 @@ public class ProviderTimeSlotActivity extends AppCompatActivity {
         fullname = firstname + lastname;
 
         mCalendarView = (CalendarView) findViewById(R.id.calendarView);
-        recyclerView = (RecyclerView) findViewById(R.id.timeslot_recycler);
 
         mCalendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
             @Override
@@ -66,25 +66,25 @@ public class ProviderTimeSlotActivity extends AppCompatActivity {
                 }
                 Log.d(TAG, "Value: " + date);
                 Log.d(TAG, "Value: " + fullname);
-
-                recyclerView.setVisibility(View.VISIBLE);
             }
         });
 
+        Log.d(TAG, "Value: " + "Hello111");
+        recyclerView = (RecyclerView) findViewById(R.id.timeslot_recycler);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        list = new ArrayList<Provider_TimeSlot>();
+        lists = new ArrayList<Provider_TimeSlot>();
 
         reference = FirebaseDatabase.getInstance().getReference().child("Appointment/" + fullname + '/' + date);
         reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                list = new ArrayList<Provider_TimeSlot>();
+                lists = new ArrayList<Provider_TimeSlot>();
                 for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
                     Provider_TimeSlot pts = dataSnapshot1.getValue(Provider_TimeSlot.class);
-                    list.add(pts);
+                    lists.add(pts);
                 }
-                adaptor = new ProviderTimeSlotAdaptor(ProviderTimeSlotActivity.this, list);
-                recyclerView.setAdapter(adaptor);
+                timeslot_adaptor = new ProviderTimeSlotAdaptor(ProviderTimeSlotActivity.this, lists);
+                recyclerView.setAdapter(timeslot_adaptor);
             }
 
             @Override
@@ -92,6 +92,5 @@ public class ProviderTimeSlotActivity extends AppCompatActivity {
                 Toast.makeText(ProviderTimeSlotActivity.this, "Opsss.... Something is wrong", Toast.LENGTH_SHORT).show();
             }
         });
-
     }
 }
