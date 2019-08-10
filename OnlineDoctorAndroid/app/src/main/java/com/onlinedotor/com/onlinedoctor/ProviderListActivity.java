@@ -56,6 +56,7 @@ public class ProviderListActivity extends AppCompatActivity {
             public void onCancelled(@NonNull DatabaseError databaseError) {
                 Toast.makeText(ProviderListActivity.this, "Opsss.... Something is wrong", Toast.LENGTH_SHORT).show();
             }
+
         });
     }
 }

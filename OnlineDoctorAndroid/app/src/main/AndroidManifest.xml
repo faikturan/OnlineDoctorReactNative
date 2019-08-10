@@ -20,6 +20,7 @@
         <activity android:name=".RegistrationActivity" />
         <activity android:name=".ProviderListActivity" />
         <activity android:name=".ProviderDetailActivity" />
+        <activity android:name=".ProviderTimeSlotActivity" />
     </application>
 
 </manifest>

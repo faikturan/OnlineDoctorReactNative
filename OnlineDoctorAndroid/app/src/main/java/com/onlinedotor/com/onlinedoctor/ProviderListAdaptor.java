@@ -62,10 +62,11 @@ public class ProviderListAdaptor extends RecyclerView.Adapter<ProviderListAdapto
                 String ClickedProviderEmail = providers.get(position).getEmail();
                 String ClickedProviderImage = providers.get(position).getImage();
                 String ClickedProviderLanguage = providers.get(position).getLanguage();
+
                 Intent intent = new Intent(view.getContext(), ProviderDetailActivity.class);
+
                 intent.putExtra("ClickedProviderFN", ClickedProviderFirstname);
                 intent.putExtra("ClickedProviderLN", ClickedProviderLastname);
-
                 intent.putExtra("ClickedProviderBG1", ClickedProviderBackground1);
                 intent.putExtra("ClickedProviderBG2", ClickedProviderBackground2);
                 intent.putExtra("ClickedProviderBG3", ClickedProviderBackground3);
