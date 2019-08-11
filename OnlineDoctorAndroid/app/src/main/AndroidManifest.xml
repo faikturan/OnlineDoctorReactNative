@@ -29,6 +29,15 @@
         <activity android:name=".ProviderDetailActivity" />
         <activity android:name=".ProviderTimeSlotActivity" />
         <activity android:name=".AppointmentConfirmationActivity" />
+        <activity android:name=".AccountActivity" />
+        <activity android:name=".FamilyMemberActivity" />
+        <activity android:name=".CallHistoryActivity" />
+        <activity android:name=".MedicationActivity" />
+        <activity android:name=".LabReportActivity" />
+        <activity android:name=".PaymentActivity" />
+        <activity android:name=".VaccinationActivity" />
+        <activity android:name=".MonitorActivity" />
+        <activity android:name=".ReferralActivity" />
     </application>
 
 </manifest>

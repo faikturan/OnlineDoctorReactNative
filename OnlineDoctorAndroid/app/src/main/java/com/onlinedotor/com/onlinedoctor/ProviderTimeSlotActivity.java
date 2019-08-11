@@ -7,10 +7,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
-import android.view.View;
-import android.widget.Button;
 import android.widget.CalendarView;
-import android.widget.ListView;
+
 import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
@@ -20,7 +18,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 
 public class ProviderTimeSlotActivity extends AppCompatActivity {
 
@@ -72,6 +69,7 @@ public class ProviderTimeSlotActivity extends AppCompatActivity {
 
                 recyclerView = (RecyclerView) findViewById(R.id.timeslot_recycler);
                 recyclerView.setLayoutManager(new LinearLayoutManager(ProviderTimeSlotActivity.this));
+
                 lists = new ArrayList<Provider_TimeSlot>();
 
                 reference = FirebaseDatabase.getInstance().getReference().child("Appointment/" + fullname + '/' + date);
@@ -93,6 +91,7 @@ public class ProviderTimeSlotActivity extends AppCompatActivity {
                         Toast.makeText(ProviderTimeSlotActivity.this, "Opsss.... Something is wrong", Toast.LENGTH_SHORT).show();
                     }
                 });
+
             }
         });
     }

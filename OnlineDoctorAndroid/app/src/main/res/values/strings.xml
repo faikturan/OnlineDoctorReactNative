@@ -28,4 +28,13 @@
     <string name="select_day">Please select a day</string>
     <string name="confirm_date">Confirm selected date</string>
     <string name="title_activity_maps">Map</string>
+    <string name="family_member">Family Member</string>
+    <string name="call_history">Call History</string>
+    <string name="medication">Medication</string>
+    <string name="lab_report">Lab Report</string>
+    <string name="payment">Payment</string>
+    <string name="vaccination">Vaccination</string>
+    <string name="monitor">Monitor</string>
+    <string name="referral">Referral</string>
+    <string name="logout">Logout</string>
 </resources>
