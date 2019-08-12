@@ -52,11 +52,12 @@ public class AccountFragment extends Fragment {
         log_out.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                FirebaseAuth.getInstance().signOut();
                 progressBar.setVisibility(View.VISIBLE);
+                FirebaseAuth.getInstance().signOut();
                 Toast.makeText(getActivity().getApplicationContext(), "Login successful!", Toast.LENGTH_LONG).show();
                 Intent intent = new Intent(getActivity(), LoginActivity.class);
                 startActivity(intent);
+                progressBar.setVisibility(View.GONE);
             }
         });
 
@@ -66,6 +67,7 @@ public class AccountFragment extends Fragment {
                 progressBar.setVisibility(View.VISIBLE);
                 Intent intent = new Intent(getActivity(), AccountActivity.class);
                 startActivity(intent);
+                progressBar.setVisibility(View.GONE);
             }
         });
 
@@ -75,6 +77,7 @@ public class AccountFragment extends Fragment {
                 progressBar.setVisibility(View.VISIBLE);
                 Intent intent = new Intent(getActivity(), FamilyMemberActivity.class);
                 startActivity(intent);
+                progressBar.setVisibility(View.GONE);
             }
         });
 
@@ -84,6 +87,7 @@ public class AccountFragment extends Fragment {
                 progressBar.setVisibility(View.VISIBLE);
                 Intent intent = new Intent(getActivity(), CallHistoryActivity.class);
                 startActivity(intent);
+                progressBar.setVisibility(View.GONE);
             }
         });
 
@@ -94,6 +98,7 @@ public class AccountFragment extends Fragment {
                 progressBar.setVisibility(View.VISIBLE);
                 Intent intent = new Intent(getActivity(), MedicationActivity.class);
                 startActivity(intent);
+                progressBar.setVisibility(View.GONE);
             }
         });
 
@@ -102,8 +107,9 @@ public class AccountFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 progressBar.setVisibility(View.VISIBLE);
-                Intent intent = new Intent(getActivity(), PaymentActivity.class);
+                Intent intent = new Intent(getActivity(), LabReportActivity.class);
                 startActivity(intent);
+                progressBar.setVisibility(View.GONE);
             }
         });
 
@@ -113,6 +119,7 @@ public class AccountFragment extends Fragment {
                 progressBar.setVisibility(View.VISIBLE);
                 Intent intent = new Intent(getActivity(), PaymentActivity.class);
                 startActivity(intent);
+                progressBar.setVisibility(View.GONE);
             }
         });
 
@@ -122,6 +129,7 @@ public class AccountFragment extends Fragment {
                 progressBar.setVisibility(View.VISIBLE);
                 Intent intent = new Intent(getActivity(), VaccinationActivity.class);
                 startActivity(intent);
+                progressBar.setVisibility(View.GONE);
             }
         });
 
@@ -131,6 +139,7 @@ public class AccountFragment extends Fragment {
                 progressBar.setVisibility(View.VISIBLE);
                 Intent intent = new Intent(getActivity(), MonitorActivity.class);
                 startActivity(intent);
+                progressBar.setVisibility(View.GONE);
             }
         });
 
@@ -140,6 +149,7 @@ public class AccountFragment extends Fragment {
                 progressBar.setVisibility(View.VISIBLE);
                 Intent intent = new Intent(getActivity(), ReferralActivity.class);
                 startActivity(intent);
+                progressBar.setVisibility(View.GONE);
             }
         });
 
