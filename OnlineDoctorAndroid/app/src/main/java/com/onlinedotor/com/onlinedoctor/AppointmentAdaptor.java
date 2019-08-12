@@ -33,12 +33,14 @@ public class AppointmentAdaptor extends RecyclerView.Adapter<AppointmentAdaptor.
         appointmentViewHolder.patient_lastname_textview.setText(appointments.get(position).getPatient_lastname());
         appointmentViewHolder.provider_firstname_textview.setText(appointments.get(position).getProvider_firstname());
         appointmentViewHolder.provider_lastname_textview.setText(appointments.get(position).getProvider_lastname());
-        appointmentViewHolder.appointment_slot.setText(appointments.get(position).getSlot());
+        appointmentViewHolder.appointment_timeslot.setText(appointments.get(position).getTimeslot());
+        appointmentViewHolder.appointment_date.setText(appointments.get(position).getDate());
+        appointmentViewHolder.appointment_status.setText(appointments.get(position).getStatus());
 
         appointmentViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String ClickedProviderTimeSlot = appointments.get(position).getSlot();
+                String ClickedProviderTimeSlot = appointments.get(position).getTimeslot();
 
                 Intent intent = new Intent(view.getContext(), AppointmentConfirmationActivity.class);
                 intent.putExtra("ClickedProviderTimeSlot", ClickedProviderTimeSlot);
@@ -58,7 +60,9 @@ public class AppointmentAdaptor extends RecyclerView.Adapter<AppointmentAdaptor.
         TextView patient_lastname_textview;
         TextView provider_firstname_textview;
         TextView provider_lastname_textview;
-        TextView appointment_slot;
+        TextView appointment_timeslot;
+        TextView appointment_date;
+        TextView appointment_status;
 
         public AppointmentViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -66,7 +70,9 @@ public class AppointmentAdaptor extends RecyclerView.Adapter<AppointmentAdaptor.
             patient_lastname_textview = (TextView) itemView.findViewById(R.id.patient_lastname_textview);
             provider_firstname_textview = (TextView) itemView.findViewById(R.id.provider_firstname_textview);
             provider_lastname_textview = (TextView) itemView.findViewById(R.id.provider_lastname_textview);
-            appointment_slot = (TextView) itemView.findViewById(R.id.appointment_slot);
+            appointment_timeslot = (TextView) itemView.findViewById(R.id.appointment_timeslot);
+            appointment_date = (TextView) itemView.findViewById(R.id.appointment_date);
+            appointment_status = (TextView) itemView.findViewById(R.id.appointment_status);
         }
     }
 }
