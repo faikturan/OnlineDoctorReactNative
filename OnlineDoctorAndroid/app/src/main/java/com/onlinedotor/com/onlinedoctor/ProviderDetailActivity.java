@@ -27,10 +27,17 @@ public class ProviderDetailActivity extends AppCompatActivity {
     private String languages;
     private String providers;
     private String specialtys;
+    private String address1;
+    private String address2;
+    private String city;
+    private String state;
+    private String zipcode;
+    private String phone;
+    private String email;
 
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(final Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_provider_detail);
@@ -46,6 +53,13 @@ public class ProviderDetailActivity extends AppCompatActivity {
         background2 = recdData.getString("ClickedProviderBG2");
         background3 = recdData.getString("ClickedProviderBG3");
         image = recdData.getString("ClickedProviderIM");
+        address1 = recdData.getString("ClickedProviderAD1");
+        address2 = recdData.getString("ClickedProviderAD2");
+        city = recdData.getString("ClickedProviderCT");
+        state = recdData.getString("ClickedProviderST");
+        zipcode = recdData.getString("ClickedProviderZC");
+        phone = recdData.getString("ClickedProviderPH");
+        email = recdData.getString("ClickedProviderEM");
         fullname = title + " " + firstname + " " + lastname;
         background = background1 + "\n" + background2 + "\n" + background3;
         languages = "Language: " + language;
@@ -76,6 +90,18 @@ public class ProviderDetailActivity extends AppCompatActivity {
                 Intent intent = new Intent(ProviderDetailActivity.this, ProviderTimeSlotActivity.class);
                 intent.putExtra("Provider_Firstname", provider_firstname);
                 intent.putExtra("Provider_Lastname", provider_lastname);
+                intent.putExtra("Provider_Title", title);
+                intent.putExtra("Provider_Language", language);
+                intent.putExtra("Provider_Specialty", specialty);
+                intent.putExtra("Provider_Provider", provider);
+                intent.putExtra("Provider_Image", image);
+                intent.putExtra("Provider_Phone", phone);
+                intent.putExtra("Provider_Email", email);
+                intent.putExtra("Provider_Address1", address1);
+                intent.putExtra("Provider_Address2", address2);
+                intent.putExtra("Provider_City", city);
+                intent.putExtra("Provider_State", state);
+                intent.putExtra("Provider_Zipcode", zipcode);
                 startActivity(intent);
             }
         });

@@ -37,4 +37,8 @@
     <string name="monitor">Monitor</string>
     <string name="referral">Referral</string>
     <string name="logout">Logout</string>
+    <string name="appointment_text">Your Appointment will be</string>
+    <string name="confirm">Confirm</string>
+    <string name="thank_you">Thank you  </string>
+    <string name="provider_address">Provider Address: </string>
 </resources>

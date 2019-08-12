@@ -13,7 +13,7 @@ import android.widget.ProgressBar;
 
 public class AppointmentFragment extends Fragment {
 
-    private Button addNewAppointmentBtn;
+    private Button addNewAppointmentBtn, previousAppointmentBtn, upcmoingAppointmentBtn;
     private ProgressBar progressBar;
 
     @Nullable
@@ -30,6 +30,22 @@ public class AppointmentFragment extends Fragment {
                 addNewAppointment();
             }
         });
+
+        previousAppointmentBtn = view.findViewById(R.id.previous_appointment_btn);
+        previousAppointmentBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                previous_appointment();
+            }
+        });
+
+        upcmoingAppointmentBtn = view.findViewById(R.id.upcoming_appointment_btn);
+        upcmoingAppointmentBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                upcoming_appointment();
+            }
+        });
         return view;
     }
 
@@ -37,5 +53,13 @@ public class AppointmentFragment extends Fragment {
         progressBar.setVisibility(View.VISIBLE);
         Intent intent = new Intent(getActivity(), ProviderListActivity.class);
         startActivity(intent);
+    }
+
+    public void previous_appointment() {
+
+    }
+
+    public void upcoming_appointment() {
+
     }
 }

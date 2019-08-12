@@ -56,7 +56,7 @@ public class ProviderListAdaptor extends RecyclerView.Adapter<ProviderListAdapto
                 String ClickedProviderAddress1 = providers.get(position).getAddress1();
                 String ClickedProviderAddress2 = providers.get(position).getAddress2();
                 String ClickedProviderCity = providers.get(position).getCity();
-                String ClickedProviderState = providers.get(position).getCity();
+                String ClickedProviderState = providers.get(position).getState();
                 String ClickedProviderZipcode = providers.get(position).getZipcode();
                 String ClickedProviderPhone = providers.get(position).getPhone();
                 String ClickedProviderEmail = providers.get(position).getEmail();

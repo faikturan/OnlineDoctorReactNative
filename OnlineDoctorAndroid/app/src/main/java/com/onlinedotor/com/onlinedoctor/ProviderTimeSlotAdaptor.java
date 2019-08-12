@@ -2,6 +2,7 @@ package com.onlinedotor.com.onlinedoctor;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -12,7 +13,6 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 public class ProviderTimeSlotAdaptor extends RecyclerView.Adapter<ProviderTimeSlotAdaptor.ProviderTimeSlotViewHolder> {
-
 
     Context context;
     ArrayList<Provider_TimeSlot> provider_time_slot;

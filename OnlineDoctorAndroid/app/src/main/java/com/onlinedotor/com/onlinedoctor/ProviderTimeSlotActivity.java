@@ -1,6 +1,8 @@
 package com.onlinedotor.com.onlinedoctor;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -32,6 +34,18 @@ public class ProviderTimeSlotActivity extends AppCompatActivity {
     private String date;
     private String empty = "";
     private String slot;
+    private String title;
+    private String language;
+    private String specialty;
+    private String provider;
+    private String image;
+    private String phone;
+    private String email;
+    private String address1;
+    private String address2;
+    private String city;
+    private String state;
+    private String zipcode;
 
     private static final String TAG = "ProviderTimeSlotActivity";
     private CalendarView mCalendarView;
@@ -43,9 +57,22 @@ public class ProviderTimeSlotActivity extends AppCompatActivity {
         setContentView(R.layout.activity_provider_timeslot);
 
         Bundle recdData = getIntent().getExtras();
-        firstname = recdData.getString("Provider_Firstname").toLowerCase();
-        lastname = recdData.getString("Provider_Lastname").toLowerCase();
-        fullname = firstname + lastname;
+        firstname = recdData.getString("Provider_Firstname");
+        lastname = recdData.getString("Provider_Lastname");
+        fullname = firstname.toLowerCase() + lastname.toLowerCase();
+
+        title = recdData.getString("Provider_Title");
+        language = recdData.getString("Provider_Language");
+        specialty = recdData.getString("Provider_Specialty");
+        provider = recdData.getString("Provider_Provider");
+        image = recdData.getString("Provider_Image");
+        phone = recdData.getString("Provider_Phone");
+        email = recdData.getString("Provider_Email");
+        address1 = recdData.getString("Provider_Address1");
+        address2 = recdData.getString("Provider_Address2");
+        city = recdData.getString("Provider_City");
+        state = recdData.getString("Provider_State");
+        zipcode = recdData.getString("Provider_Zipcode");
 
         mCalendarView = (CalendarView) findViewById(R.id.calendarView);
 
@@ -64,8 +91,29 @@ public class ProviderTimeSlotActivity extends AppCompatActivity {
                 } else {
                     date = year + "-" + (month + 1) + "-" + dayOfMonth;
                 }
-                Log.d(TAG, "Value: " + date);
-                Log.d(TAG, "Value: " + fullname);
+//                Log.d(TAG, "Value: " + date);
+//                Log.d(TAG, "Value: " + fullname);
+
+//                Intent intent = new Intent(ProviderTimeSlotActivity.this, AppointmentConfirmationActivity.class);
+//                intent.putExtra("Appointment_Date", date);
+                SharedPreferences mySharedPreferences = getApplicationContext().getSharedPreferences("MYPREFERENCENAME", Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = mySharedPreferences.edit();
+                editor.putString("Appointment_Date",date);
+                editor.putString("Appointment_FirstName",firstname);
+                editor.putString("Appointment_LastName",lastname);
+                editor.putString("Appointment_Title",title);
+                editor.putString("Appointment_Phone",phone);
+                editor.putString("Appointment_Email",email);
+                editor.putString("Appointment_Provider",provider);
+                editor.putString("Appointment_Specialty",specialty);
+                editor.putString("Appointment_Language",language);
+                editor.putString("Appointment_Address1",address1);
+                editor.putString("Appointment_Address2",address2);
+                editor.putString("Appointment_City",city);
+                editor.putString("Appointment_State",state);
+                editor.putString("Appointment_Zipcode",zipcode);
+                editor.putString("Appointment_Image",image);
+                editor.apply();
 
                 recyclerView = (RecyclerView) findViewById(R.id.timeslot_recycler);
                 recyclerView.setLayoutManager(new LinearLayoutManager(ProviderTimeSlotActivity.this));
@@ -73,7 +121,7 @@ public class ProviderTimeSlotActivity extends AppCompatActivity {
                 lists = new ArrayList<Provider_TimeSlot>();
 
                 reference = FirebaseDatabase.getInstance().getReference().child("Appointment/" + fullname + '/' + date);
-                Log.d(TAG, "Value: " + "Appointment/" + fullname + '/' + date);
+//                Log.d(TAG, "Value: " + "Appointment/" + fullname + '/' + date);
                 reference.addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {

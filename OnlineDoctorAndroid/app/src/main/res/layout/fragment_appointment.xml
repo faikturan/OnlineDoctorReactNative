@@ -12,14 +12,14 @@
         android:weightSum="1.0">
 
         <Button
-            android:id="@+id/previous_appointment"
+            android:id="@+id/previous_appointment_btn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="0.5"
             android:text="@string/previous_appointment" />
 
         <Button
-            android:id="@+id/upcoming_appointment"
+            android:id="@+id/upcoming_appointment_btn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="0.5"
