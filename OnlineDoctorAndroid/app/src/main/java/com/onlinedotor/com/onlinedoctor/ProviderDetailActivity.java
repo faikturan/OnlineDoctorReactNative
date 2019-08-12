@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
@@ -34,6 +35,8 @@ public class ProviderDetailActivity extends AppCompatActivity {
     private String zipcode;
     private String phone;
     private String email;
+
+    private ProgressBar progressBar;
 
 
     @Override
@@ -74,6 +77,8 @@ public class ProviderDetailActivity extends AppCompatActivity {
         ImageView imageView = (ImageView) findViewById(R.id.provider_image);
         Button btn_toTimeSlot = (Button) findViewById(R.id.btn_toTimeSlot);
 
+        progressBar = findViewById(R.id.progressBar);
+
 
         full_name.setText(fullname);
         lang_uage.setText(languages);
@@ -85,6 +90,7 @@ public class ProviderDetailActivity extends AppCompatActivity {
         btn_toTimeSlot.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                progressBar.setVisibility(View.VISIBLE);
                 String provider_firstname = firstname;
                 String provider_lastname = lastname;
                 Intent intent = new Intent(ProviderDetailActivity.this, ProviderTimeSlotActivity.class);
@@ -103,6 +109,7 @@ public class ProviderDetailActivity extends AppCompatActivity {
                 intent.putExtra("Provider_State", state);
                 intent.putExtra("Provider_Zipcode", zipcode);
                 startActivity(intent);
+                progressBar.setVisibility(View.GONE);
             }
         });
     }

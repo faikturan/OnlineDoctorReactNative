@@ -155,6 +155,7 @@ public class AppointmentFragment extends Fragment {
         progressBar.setVisibility(View.VISIBLE);
         Intent intent = new Intent(getActivity(), ProviderListActivity.class);
         startActivity(intent);
+        progressBar.setVisibility(View.GONE);
     }
 
 //    public void previous_appointment() {

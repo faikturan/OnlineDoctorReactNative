@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -95,6 +96,7 @@ public class ProviderListAdaptor extends RecyclerView.Adapter<ProviderListAdapto
     class ProviderListViewHolder extends RecyclerView.ViewHolder{
         TextView provider_firstname, provider_lastname, provider_specialty, provider_provider;
         ImageView provider_image;
+        private ProgressBar progressBar;
 
         public ProviderListViewHolder(View itemView){
             super(itemView);

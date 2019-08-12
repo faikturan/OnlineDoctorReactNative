@@ -87,6 +87,7 @@ public class LoginActivity extends AppCompatActivity {
         progressBar.setVisibility(View.VISIBLE);
         Intent intent = new Intent(LoginActivity.this, RegistrationActivity.class);
         startActivity(intent);
+        progressBar.setVisibility(View.GONE);
     }
 
     private void initializeUI() {
