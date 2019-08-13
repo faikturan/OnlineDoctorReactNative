@@ -41,4 +41,5 @@
     <string name="confirm">Confirm</string>
     <string name="thank_you">Thank you  </string>
     <string name="provider_address">Provider Address: </string>
+    <string name="confirm_password">Confirm Password</string>
 </resources>

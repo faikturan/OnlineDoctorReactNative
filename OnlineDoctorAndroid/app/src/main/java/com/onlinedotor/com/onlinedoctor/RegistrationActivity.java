@@ -17,7 +17,7 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class RegistrationActivity extends AppCompatActivity {
-    private EditText emailTV, passwordTV;
+    private EditText emailTV, passwordTV, confirm_passwordTV;
     private Button regBtn, goToLogin;
     private ProgressBar progressBar;
 
@@ -49,9 +49,11 @@ public class RegistrationActivity extends AppCompatActivity {
     private void registerNewUser() {
         progressBar.setVisibility(View.VISIBLE);
 
-        String email, password;
+        String email, password, confirm_password;
         email = emailTV.getText().toString();
         password = passwordTV.getText().toString();
+        confirm_password = confirm_passwordTV.getText().toString();
+
 
         if (TextUtils.isEmpty(email)) {
             Toast.makeText(getApplicationContext(), "Please enter email...", Toast.LENGTH_LONG).show();
@@ -61,6 +63,18 @@ public class RegistrationActivity extends AppCompatActivity {
             Toast.makeText(getApplicationContext(), "Please enter password!", Toast.LENGTH_LONG).show();
             return;
         }
+
+        if (TextUtils.isEmpty(confirm_password)) {
+            Toast.makeText(getApplicationContext(), "Please confirm password!", Toast.LENGTH_LONG).show();
+            return;
+        }
+
+        if(!password.equals(confirm_password)){
+            Toast.makeText(getApplicationContext(), "Password is not matched!", Toast.LENGTH_LONG).show();
+            return;
+        }
+
+
 
         mAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
@@ -90,6 +104,7 @@ public class RegistrationActivity extends AppCompatActivity {
     private void initializeUI() {
         emailTV = findViewById(R.id.email);
         passwordTV = findViewById(R.id.password);
+        confirm_passwordTV = findViewById(R.id.confirm_password);
         regBtn = findViewById(R.id.register);
         progressBar = findViewById(R.id.progressBar);
         goToLogin = findViewById(R.id.gotologin);

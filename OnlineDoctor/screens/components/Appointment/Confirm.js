@@ -91,7 +91,7 @@ export default class MakeAppointment extends Component {
                         <Icon 
                         name="ios-arrow-back" 
                         size={25}
-                        onPress ={() => this.props.navigation.goBack('MakeAppointment')}
+                        onPress ={() => this.props.navigation.navigate('MakeAppointment')}
                         />
                         <View style={{ flex: 1, paddingRight: 10 }}>
                             <Text style={styles.headertext}>Appointment</Text>
