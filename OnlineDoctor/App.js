@@ -23,19 +23,18 @@ import Payment from './screens/components/Profile/Payment';
 import Referral from './screens/components/Profile/Referral';
 import Vaccination from './screens/components/Profile/Vaccination';
 import MakeAppointment from './screens/components/Appointment/MakeAppointment';
-import Slot from './screens/components/Appointment/Slot';
 import DoctorList from './screens/components/Appointment/DoctorList';
 import DoctorDetail from './screens/components/Appointment/DoctorDetail';
 import Confirm from './screens/components/Appointment/Confirm';
-
+import FirebaseConfig from './screens/FirebaseConfig';
 import firebase from 'firebase';
-import { firebaseConfig } from './screens/firebaseconfig';
 
 if (!firebase.apps.length) {
-  firebase.initializeApp(firebaseConfig);
-}
+  firebase.initializeApp(FirebaseConfig);
+};
 
 export default class App extends React.Component{
+
   render() {
     return <AppNavigator />;
   }
@@ -56,7 +55,6 @@ const AppSwitchNavigator = createSwitchNavigator({
   Vaccination: { screen: Vaccination },
   Dashboard : { screen: Dashboard },
   MakeAppointment : { screen: MakeAppointment },
-  Slot : { screen: Slot },
   DoctorList : { screen: DoctorList },
   DoctorDetail : { screen: DoctorDetail },
   Confirm : { screen: Confirm }

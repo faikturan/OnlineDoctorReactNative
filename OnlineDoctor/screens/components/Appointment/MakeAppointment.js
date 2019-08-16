@@ -1,23 +1,15 @@
 import React, { Component } from 'react';
 import { StyleSheet, Text, View, Button, Dimensions, ScrollView, FlatList, TouchableOpacity } from 'react-native';
-import firebase from 'firebase';
 import { SafeAreaView } from 'react-navigation';
 import Iconn from 'react-native-vector-icons/AntDesign';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { Calendar, CalendarList, Agenda} from 'react-native-calendars';
 import { ListItem } from 'react-native-elements';
+import FirebaseConfig from '../../FirebaseConfig';
+import firebase from 'firebase';
 
-var config = {
-    apiKey: "AIzaSyDCozJ--F6g1nGzsxstmGXAm0Tfe39LVrc",
-    authDomain: "onlinedoctorproject.firebaseapp.com",
-    databaseURL: "https://onlinedoctorproject.firebaseio.com",
-    projectId: "onlinedoctorproject",
-    storageBucket: "onlinedoctorproject.appspot.com",
-    messagingSenderId: "298997965467",
-    appId: "1:298997965467:web:1b2070c19b10333d"
-};
 if (!firebase.apps.length) {
-firebase.initializeApp(config);
+  firebase.initializeApp(FirebaseConfig);
 };
 
 const rootRef = firebase.database().ref();

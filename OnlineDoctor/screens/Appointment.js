@@ -3,8 +3,14 @@ import { StyleSheet, Text, View, Button, Dimensions } from 'react-native';
 import { SafeAreaView } from 'react-navigation';
 import Icon from 'react-native-vector-icons/Ionicons';
 import Iconn from 'react-native-vector-icons/AntDesign';
+import FirebaseConfig from './FirebaseConfig';
+import firebase from 'firebase';
 
 const { width, height } = Dimensions.get('window')
+
+if (!firebase.apps.length) {
+  firebase.initializeApp(FirebaseConfig);
+};
 
 class Appointment extends Component {
 
@@ -21,13 +27,17 @@ class Appointment extends Component {
       isUpcomingListVisible: !previousState.isUpcomingListVisible,
       isPastListVisible: !previousState.isPastListVisible,
     }))
-  }
+  };
 
   pastListHideAndShow = () => {
     this.setState(previousState => ({ 
       isPastListVisible: !previousState.isPastListVisible, 
       isUpcomingListVisible: !previousState.isUpcomingListVisible,
     }))
+  };
+
+  componentWillMount() {
+    var email =firebase.auth().currentUser.email;
   }
 
 

@@ -1,24 +1,16 @@
 import React, { Component } from 'react';
 import { StyleSheet, Text, View, Button, Label, InputAccessoryView, Item, TextInput, AlertIOS, TouchableHighlight, Picker, Dimensions, ScrollView } from 'react-native';
-import firebase from 'firebase';
 import { SafeAreaView } from 'react-navigation';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { TextField } from 'react-native-material-textfield';
+import FirebaseConfig from '../../FirebaseConfig';
+import firebase from 'firebase';
 
 
 const { width: WIDTH } = Dimensions.get('window')
 
-var config = {
-  apiKey: "AIzaSyDCozJ--F6g1nGzsxstmGXAm0Tfe39LVrc",
-  authDomain: "onlinedoctorproject.firebaseapp.com",
-  databaseURL: "https://onlinedoctorproject.firebaseio.com",
-  projectId: "onlinedoctorproject",
-  storageBucket: "onlinedoctorproject.appspot.com",
-  messagingSenderId: "298997965467",
-  appId: "1:298997965467:web:1b2070c19b10333d"
-};
 if (!firebase.apps.length) {
-  firebase.initializeApp(config);
+  firebase.initializeApp(FirebaseConfig);
 };
 
 
@@ -48,26 +40,11 @@ export default class Account extends Component {
       city         : '',
       username     : '',
       errorMessage : null,
-      // firstname: '',
-      // lastname: '',
-      // address1: '',
-      // address2: '',
-      // dob: '',
-      // gender: '',
-      // mi: '',
-      // phone: '',
-      // servicecode: '',
-      // state: '',
-      // zipcode: '',
-      // email: '',
-      // username: '',
-      // city : ''
     };
   }
 
   componentDidMount() {
-    var email = firebase.auth().currentUser.email;
-    console.log(email);
+    var email =firebase.auth().currentUser.email;
     var query = accountRef.orderByChild('email').equalTo(email);
     query.once('value', (snapshot) => {
       snapshot.forEach((child) => {
@@ -245,7 +222,7 @@ export default class Account extends Component {
   render() {
     return (
       <SafeAreaView style={{ flex: 1 }}>
-        <View style={{ flex: 1 }}>
+        <View style={{ flex: 1, padding: 10 }}>
           <View style={{ height: this.startHeaderHeight }}>
             <View style={ styles.header}>
                 <Icon 
