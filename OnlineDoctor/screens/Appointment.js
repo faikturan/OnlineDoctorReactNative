@@ -3,9 +3,10 @@ import { StyleSheet, Text, View, Button, Dimensions, FlatList, TouchableOpacity 
 import { SafeAreaView } from 'react-navigation';
 import Icon from 'react-native-vector-icons/Ionicons';
 import Iconn from 'react-native-vector-icons/AntDesign';
+import Iconnn from 'react-native-vector-icons/FontAwesome';
 import FirebaseConfig from './FirebaseConfig';
 import firebase from 'firebase';
-import { Card, CardItem, Left, Thumbnail, Title, Subtitle } from 'native-base';
+import { Card, CardItem, Left, Thumbnail, Title, Subtitle, Right } from 'native-base';
 
 const { width, height } = Dimensions.get('window')
 
@@ -96,14 +97,19 @@ class Appointment extends Component {
           <CardItem>
             <Left>
               <Thumbnail
-                source={item.image}
-                style={{ width:80, height:60, borderRadius:10, marginRight:5}}
+                source={{uri : item.image}}
+                style={{ width:100, height:80, borderRadius:10, marginRight:5}}
               />
               <View style={{ alignItems:'flex-start', top: -10}}>
-                <Title>{item.date} {item.timeslot}</Title>
-                <Subtitle>{item.provider_firstname} {item.provider_lastname}</Subtitle>
+                <Title style={{padding :5, paddingTop : 15}}>{item.date}</Title>
+                <Title style={{padding :5}}>{item.timeslot}</Title>
+                <Title style={{padding :5}}>{item.provider_firstname} {item.provider_lastname}</Title>
+                <Subtitle style={{padding :5}}>{item.status}</Subtitle>
               </View>
             </Left>
+            <Right>
+              <Iconnn name="chevron-right" size={20} style={styles.moreIcon} />
+            </Right>
           </CardItem>
         </Card>
     </TouchableOpacity>

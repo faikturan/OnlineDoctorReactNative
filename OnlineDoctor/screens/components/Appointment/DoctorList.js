@@ -3,9 +3,10 @@ import { StyleSheet, Text, View, Button, Dimensions, ScrollView, FlatList, Touch
 import { SafeAreaView } from 'react-navigation';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { ListItem } from 'react-native-elements';
-const { width } = Dimensions.get('window');
 import FirebaseConfig from '../../FirebaseConfig';
 import firebase from 'firebase';
+
+const { width } = Dimensions.get('window');
 
 if (!firebase.apps.length) {
   firebase.initializeApp(FirebaseConfig);
