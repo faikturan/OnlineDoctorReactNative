@@ -26,6 +26,7 @@ import MakeAppointment from './screens/components/Appointment/MakeAppointment';
 import DoctorList from './screens/components/Appointment/DoctorList';
 import DoctorDetail from './screens/components/Appointment/DoctorDetail';
 import Confirm from './screens/components/Appointment/Confirm';
+import AppointmentDetail from './screens/components/Appointment/AppointmentDetail';
 import FirebaseConfig from './screens/FirebaseConfig';
 import firebase from 'firebase';
 
@@ -57,7 +58,8 @@ const AppSwitchNavigator = createSwitchNavigator({
   MakeAppointment : { screen: MakeAppointment },
   DoctorList : { screen: DoctorList },
   DoctorDetail : { screen: DoctorDetail },
-  Confirm : { screen: Confirm }
+  Confirm : { screen: Confirm },
+  AppointmentDetail : { screen: AppointmentDetail },
 });
 
 const AppNavigator = createAppContainer(AppSwitchNavigator)

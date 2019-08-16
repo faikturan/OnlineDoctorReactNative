@@ -8,7 +8,7 @@ const { width } = Dimensions.get('window');
 
 class Home extends Component {
 
-    componentWillMount(){
+    componentDidMount(){
         this.startHeaderHeight = 80
         if(Platform.OS == 'android'){
             this.startHeaderHeight = 100 + StatusBar.currentHeight

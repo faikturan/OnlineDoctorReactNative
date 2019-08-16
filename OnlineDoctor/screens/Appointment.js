@@ -1,16 +1,19 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, Button, Dimensions } from 'react-native';
+import { StyleSheet, Text, View, Button, Dimensions, FlatList, TouchableOpacity } from 'react-native';
 import { SafeAreaView } from 'react-navigation';
 import Icon from 'react-native-vector-icons/Ionicons';
 import Iconn from 'react-native-vector-icons/AntDesign';
 import FirebaseConfig from './FirebaseConfig';
 import firebase from 'firebase';
+import { Card, CardItem, Left, Thumbnail, Title, Subtitle } from 'native-base';
 
 const { width, height } = Dimensions.get('window')
 
 if (!firebase.apps.length) {
   firebase.initializeApp(FirebaseConfig);
 };
+
+const rootRef = firebase.database().ref();
 
 class Appointment extends Component {
 
@@ -19,26 +22,92 @@ class Appointment extends Component {
     this.state = {
       isUpcomingListVisible : true,
       isPastListVisible : false,
+      arrData : [],
+      user_email : '',
+      user_firstname : '',
+      user_lastname : '',
+      username: '',
     }
   }
 
   upcomingListHideAndShow = () => {
     this.setState(previousState => ({ 
-      isUpcomingListVisible: !previousState.isUpcomingListVisible,
-      isPastListVisible: !previousState.isPastListVisible,
-    }))
+      isUpcomingListVisible: true,
+      isPastListVisible: false,
+    }));
+    var query = rootRef.child('Appointment/'+ this.state.username.toLowerCase());
+    query.once('value', (snapshot) => {
+      var items = [];
+      snapshot.forEach((child) => {
+        items.push({
+          date : child.val().date,
+          patient_firstname : child.val().patient_firstname,
+          patient_lastname : child.val().patient_lastname,
+          provider_firstname : child.val().provider_firstname,
+          provider_lastname : child.val().provider_lastname,
+          status : child.val().status,
+          timeslot : child.val().timeslot,
+          image : child.val().image,
+        });
+      });
+      this.setState({ arrData : items });
+    });
   };
 
   pastListHideAndShow = () => {
     this.setState(previousState => ({ 
-      isPastListVisible: !previousState.isPastListVisible, 
-      isUpcomingListVisible: !previousState.isUpcomingListVisible,
+      isPastListVisible: true, 
+      isUpcomingListVisible: false,
     }))
   };
 
-  componentWillMount() {
+  componentDidMount() {
     var email =firebase.auth().currentUser.email;
-  }
+    this.setState({ user_email : email });
+    var query = rootRef.child('AccountProfile').orderByChild('email').equalTo(email);
+    query.once('value', (snapshot) => {
+      snapshot.forEach((child) => {
+        this.setState({
+          user_firstname : child.val().firstname,
+          user_lastname : child.val().lastname,
+          username : child.val().firstname + child.val().lastname,
+        });
+      });
+    }).catch((error) => {
+      console.log(error);
+    });
+    var day = new Date().getDate();
+    if(day < 10){
+      day = '0' + day;
+    }
+    var month = new Date().getMonth() + 1;
+    if(month < 10){
+      month = '0' + month;
+    }
+    var year = new Date().getFullYear();
+    var date = year + '-' + month + '-' + day;
+  };
+
+  keyExtractor = (item, index) => index.toString()
+
+  renderItem = ({ item }) => (
+    <TouchableOpacity onPress={() => this.props.navigation.navigate('AppointmentDetail', { data: item } )}> 
+        <Card>
+          <CardItem>
+            <Left>
+              <Thumbnail
+                source={item.image}
+                style={{ width:80, height:60, borderRadius:10, marginRight:5}}
+              />
+              <View style={{ alignItems:'flex-start', top: -10}}>
+                <Title>{item.date} {item.timeslot}</Title>
+                <Subtitle>{item.provider_firstname} {item.provider_lastname}</Subtitle>
+              </View>
+            </Left>
+          </CardItem>
+        </Card>
+    </TouchableOpacity>
+  )
 
 
   render() {
@@ -57,7 +126,7 @@ class Appointment extends Component {
               />
           </View>
         </View>
-        <View style={{ flex:1 }}>
+        <View style={styles.Container}>
           <View style={styles.buttonlayout}>
             <Button style={styles.button}
               title='Upcoming'
@@ -68,25 +137,26 @@ class Appointment extends Component {
               onPress={this.pastListHideAndShow}
             />
           </View>
-        </View>
-        <View style={{ flex:1 }}>
           { this.state.isUpcomingListVisible ? 
-            <View hide={this.state.isUpcomingListVisible}>
-              <Text>
-                Upcoming
-              </Text>
+            <View style={ styles.ListViewContainer } hide={this.state.isUpcomingListVisible}>
+              <FlatList
+                  keyExtractor={this.keyExtractor}
+                  data={this.state.arrData}
+                  renderItem={this.renderItem}
+              />
             </View>
             : null 
           }
           { this.state.isPastListVisible ? 
-          <View hide={this.state.isPastListVisible}>
-            <Text>
-              Past
-            </Text>
-          </View>
-          : null
+            <View style={ styles.ListViewContainer } hide={this.state.isUpcomingListVisible}>
+              <FlatList
+                keyExtractor={this.keyExtractor}
+                data={this.state.arrData}
+                renderItem={this.renderItem}
+              />
+            </View>
+            : null
           }
-          
         </View>
       </SafeAreaView>
     )
@@ -117,10 +187,18 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between'
     },
     buttonlayout: {
-      flexDirection: 'row'
+      flexDirection: 'row',
+      height: 40,
+      alignItems: 'center',
+      justifyContent: 'space-between',
     },
     button: {
       width: '50%'
+    },
+    ListViewContainer: {
+      flex:1, 
+      width: width, 
+      padding:20
     }
   });
   

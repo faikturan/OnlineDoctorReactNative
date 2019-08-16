@@ -67,106 +67,10 @@ export default class Account extends Component {
     }).catch((error) => {
       console.log(error);
     });
-    // accountRef.on('value', (childSnapshot) => {
-    //   const accounts = [];
-    //   childSnapshot.forEach((doc) => {
-    //     accounts.push({
-    //       key : doc.key,
-    //       firstname: doc.toJSON().firstname,
-    //       lastname: doc.toJSON().lastname,
-    //       address1: doc.toJSON().address1,
-    //       address2: doc.toJSON().address2,
-    //       dob: doc.toJSON().dob,
-    //       gender: doc.toJSON().gender,
-    //       mi: doc.toJSON().mi,
-    //       phone: doc.toJSON().phone,
-    //       servicecode: doc.toJSON().servicecode,
-    //       state: doc.toJSON().state,
-    //       city: doc.toJSON().city,
-    //       email: doc.toJSON().email,
-    //       username: doc.toJSON().username,
-    //     })
-    //   })
-    // });
-    // var email = firebase.auth().currentUser.email;
-    
-    // firebase.database().ref('UserProfile').once('value', data => {
-    //   let obj = data.toJSON()
-    //   console.log(obj);
-    //   // this.setState({
-    //   //   firstname : accountsObj.firstname,
-    //   //   lastname : accountsObj.lastname,
-    //   //   address1 : accountsObj.address1,
-    //   //   address2 : accountsObj.address2,
-    //   //   dob : accountsObj.dob,
-    //   //   gender : accountsObj.gender,
-    //   //   mi : accountsObj.mi,
-    //   //   phone : accountsObj.phone,
-    //   //   servicecode : accountsObj.servicecode,
-    //   //   state : accountsObj.state,
-    //   //   city : accountsObj.city,
-    //   //   email : accountsObj.email,
-    //   //   username : accountsObj.username,
-    //   // });
-    //   // console.log(this.state.firstname);
-    // }).catch((error) => {
-    //   console.log(error)
-    // });
   }
-
-  // writeUserData(firstname, lastname, address1, address2, dob, gender, phone, mi,
-  //   servicecode, state, city, zipcode, email, username) {
-  //     firebase.database().ref('accountInfo/').set({
-  //     // firstname : FirstName,
-  //     // lastname, FirstName,
-  //     // address1: Address1,
-  //     // address2: Address2,
-  //     // dob: DOB,
-  //     // gender: Gender,
-  //     // mi: MI,
-  //     // phone: Phone,
-  //     // servicecode: ServiceCode,
-  //     // state: State,
-  //     // zipcode: ZipCode,
-  //     // email: Email,
-  //     // username: Username,
-  //     // city: City  
-  //     firstname: '',
-  //     lastname: '',
-  //     address1: '',
-  //     address2: '',
-  //     mi: '',
-  //     gender: '',
-  //     dob: '',
-  //     phone: '',
-  //     servicecode: '',
-  //     state: '',
-  //     city: '',
-  //     email: '',
-  //     username: '',
-
-  //   }).then((data) => {
-  //     console.log('data: ', data)
-  //   }).catch((error) => {
-  //     console.log('error: ', error)
-  //   })
-  // }
-
-  // readData = () => {
-  //   var email = firebase.auth().currentUser.email;;
-  //   var query = accountRef.orderByChild('email').equalTo(email);
-  //   query.once('value', function(snapshot) {
-  //     snapshot.forEach(function(child) {
-  //       console.log(child.key, child.val().firstname);
-  //     });
-  //   }).catch((error) => {
-  //     console.log(error);
-  //   })
-  // }
 
   handleSubmit = () => {
     var email = firebase.auth().currentUser.email;
-    // var newPostKey = firebase.database().ref().child('AccountProfile').push().key;
     var query = accountRef.orderByChild('email').equalTo(email);
     query.once('value', (snapshot) => {
       snapshot.forEach((child) => {
@@ -222,7 +126,7 @@ export default class Account extends Component {
   render() {
     return (
       <SafeAreaView style={{ flex: 1 }}>
-        <View style={{ flex: 1, padding: 10 }}>
+        <View style={{ flex: 1 }}>
           <View style={{ height: this.startHeaderHeight }}>
             <View style={ styles.header}>
                 <Icon 
@@ -235,12 +139,12 @@ export default class Account extends Component {
                 </View>
             </View>
           </View>
-          <Text style={styles.title}>
+          <Text style={ styles.title}>
             Personal Information
           </Text>
           <ScrollView scrollEventThrottle={16}>
             <ScrollView vertical={true}
-                      showsVerticalScrollIndicator={true}>
+                      showsVerticalScrollIndicator={true} style={{paddingLeft: 30, paddingRight: 30, paddingBottom: 20}}>
               <TextField
                 label='Username'
                 placeholder={'Username'}
@@ -363,4 +267,10 @@ const styles = StyleSheet.create({
     borderColor: 'gray', 
     borderWidth: 1
   },
+  title: {
+    textAlign: 'center',
+    fontSize: 20,
+    fontStyle: 'normal',
+    fontWeight: '500'
+  }
 });
