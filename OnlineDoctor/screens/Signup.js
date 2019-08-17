@@ -3,7 +3,13 @@ import { StyleSheet, Text, TextInput, View, Button } from 'react-native'
 import firebase from 'firebase';
 
 export default class SignUp extends React.Component {
-    state = { email: '', password: '', errorMessage: null }
+
+    state = { 
+      email: '', 
+      password: '', 
+      errorMessage: null 
+    }
+    
     handleSignUp = () => {
         firebase
         .auth()
@@ -11,6 +17,7 @@ export default class SignUp extends React.Component {
         .then(() => this.props.navigation.navigate('Dashboard'))
         .catch(error => this.setState({ errorMessage: error.message }))
     }
+    
     render() {
         return (
         <View style={styles.container}>

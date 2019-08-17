@@ -6,9 +6,9 @@
  * @flow
  */
 
-import React, {Fragment} from 'react';
+import React, { Component } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
-import { createSwitchNavigator, createAppContainer } from 'react-navigation';
+import { createSwitchNavigator, createAppContainer, createStackNavigator } from 'react-navigation';
 import Login from './screens/Login';
 import SignUp from './screens/Signup';
 import Dashboard from './screens/Dashboard';
@@ -34,10 +34,12 @@ if (!firebase.apps.length) {
   firebase.initializeApp(FirebaseConfig);
 };
 
-export default class App extends React.Component{
+export default class App extends Component{
 
   render() {
-    return <AppNavigator />;
+    return 
+      <AppNavigator1 />;
+      <AppNavigator2 />;
   }
 }
 
@@ -62,7 +64,13 @@ const AppSwitchNavigator = createSwitchNavigator({
   AppointmentDetail : { screen: AppointmentDetail },
 });
 
-const AppNavigator = createAppContainer(AppSwitchNavigator)
+const AppNavigator1 = createAppContainer(AppSwitchNavigator);
+
+const AppStackNavigator = createStackNavigator({
+  
+});
+
+const AppNavigator2 = createStackNavigator(AppStackNavigator);
 
 const styles = StyleSheet.create({
   Container: {
