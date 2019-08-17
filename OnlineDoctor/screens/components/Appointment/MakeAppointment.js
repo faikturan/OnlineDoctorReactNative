@@ -94,18 +94,6 @@ export default class MakeAppointment extends Component {
     render() {
         return (
             <SafeAreaView style={{ flex:1 }}>
-                <View style={{ height: this.startHeaderHeight }}>
-                    <View style={ styles.header}>
-                        <Icon 
-                        name="ios-arrow-back" 
-                        size={25}
-                        onPress ={() => this.props.navigation.navigate('Appointment')}
-                        />
-                        <View style={{ flex: 1, paddingRight: 10 }}>
-                            <Text style={styles.headertext}>Make Appointment</Text>
-                        </View>
-                    </View>
-                </View>
                 <View style={{ flex:1 }}>
                     <Calendar
                         style={styles.calendar}

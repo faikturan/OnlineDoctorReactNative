@@ -20,7 +20,7 @@ const BottomTabNavigator = createBottomTabNavigator({
   Home: {
     screen:Home,
     navigationOptions: {
-      title: `Home`,
+      title: 'Home',
       tabBarLabel: 'HOME',
       tabBarIcon: ({ tintColor }) => (
         <Icon name="ios-home" color={tintColor} size={24} />
@@ -30,7 +30,7 @@ const BottomTabNavigator = createBottomTabNavigator({
   Pharmacy: {
     screen:Pharmacy,
     navigationOptions: {
-      title: `Pharmacy`,
+      title: 'Pharmacy',
       tabBarLabel: 'PHARMACY',
       tabBarIcon: ({ tintColor }) => (
         <Icon name="ios-map" color={tintColor} size={24} />
@@ -40,7 +40,7 @@ const BottomTabNavigator = createBottomTabNavigator({
   Appointment: {
     screen:Appointment,
     navigationOptions: {
-      title: `Appointment`,
+      title: 'Appointment',
       tabBarLabel: 'APPOINTMENT',
       tabBarIcon: ({ tintColor }) => (
         <Icon name="ios-paper" color={tintColor} size={24} />
@@ -50,7 +50,7 @@ const BottomTabNavigator = createBottomTabNavigator({
   Profile: {
     screen:Profile,
     navigationOptions: {
-      title: `Profile`,
+      title: 'Profile',
       tabBarLabel: 'PROFILE',
       tabBarIcon: ({ tintColor }) => (
         <Icon name="ios-person" color={tintColor} size={24} />

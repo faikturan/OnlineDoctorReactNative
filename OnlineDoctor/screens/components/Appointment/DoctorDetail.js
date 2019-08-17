@@ -116,18 +116,6 @@ export default class DoctorDetail extends Component {
                 <ScrollView scrollEventThrottle={16}>
                     <ScrollView vertical={true}
                         showsVerticalScrollIndicator={true}>
-                        <View style={{ height: this.startHeaderHeight }}>
-                            <View style={ styles.header}>
-                                <Icon 
-                                name="ios-arrow-back" 
-                                size={25}
-                                onPress ={() => this.props.navigation.navigate('DoctorList')}
-                                />
-                                <View style={{ flex: 1, paddingRight: 10 }}>
-                                    <Text style={styles.headertext}>Medical Doctor Bio</Text>
-                                </View>
-                            </View>
-                        </View>
                         <View style={{ flex:1 }}>
                             <View style={styles.Container}>
                                 <Image

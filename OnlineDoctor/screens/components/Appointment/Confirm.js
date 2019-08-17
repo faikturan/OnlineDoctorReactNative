@@ -78,18 +78,6 @@ export default class MakeAppointment extends Component {
     render() {
         return (
             <SafeAreaView style={{ flex:1 }}>
-                <View style={{ height: this.startHeaderHeight }}>
-                    <View style={ styles.header}>
-                        <Icon 
-                        name="ios-arrow-back" 
-                        size={25}
-                        onPress ={() => this.props.navigation.navigate('MakeAppointment')}
-                        />
-                        <View style={{ flex: 1, paddingRight: 10 }}>
-                            <Text style={styles.headertext}>Appointment</Text>
-                        </View>
-                    </View>
-                </View>
                 <View style={{ flex:1 }}>
                     <ScrollView scrollEventThrottle={16}>
                         <ScrollView vertical={true}
@@ -109,20 +97,6 @@ const styles = StyleSheet.create({
         backgroundColor: '#fff',
         alignItems: 'center',
         justifyContent: 'center',
-    },
-    header: {
-        flexDirection: 'row', 
-        padding: 10, 
-        marginLeft: 10, 
-        justifyContent: 'space-between',
-        alignItems: 'center', 
-        elevation: 1, 
-        marginTop: Platform.OS == 'android' ? 30 : null
-    },
-    headertext: {
-        fontSize: 22, 
-        fontWeight: '500', 
-        textAlign:'center'
     },
     textinput: {
         height: 40, 
