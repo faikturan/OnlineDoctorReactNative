@@ -8,6 +8,10 @@ const { width } = Dimensions.get('window');
 
 class Home extends Component {
 
+    // static navigationOptions = {
+    //     title: 'Home',
+    // };
+
     componentDidMount(){
         this.startHeaderHeight = 80
         if(Platform.OS == 'android'){

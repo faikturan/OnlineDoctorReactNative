@@ -16,10 +16,11 @@ import Pharmacy from './Pharmacy';
 import Appointment from './Appointment';
 import Profile from './Profile';
 
-export default createBottomTabNavigator({
+const BottomTabNavigator = createBottomTabNavigator({
   Home: {
     screen:Home,
     navigationOptions: {
+      title: `Home`,
       tabBarLabel: 'HOME',
       tabBarIcon: ({ tintColor }) => (
         <Icon name="ios-home" color={tintColor} size={24} />
@@ -29,6 +30,7 @@ export default createBottomTabNavigator({
   Pharmacy: {
     screen:Pharmacy,
     navigationOptions: {
+      title: `Pharmacy`,
       tabBarLabel: 'PHARMACY',
       tabBarIcon: ({ tintColor }) => (
         <Icon name="ios-map" color={tintColor} size={24} />
@@ -38,6 +40,7 @@ export default createBottomTabNavigator({
   Appointment: {
     screen:Appointment,
     navigationOptions: {
+      title: `Appointment`,
       tabBarLabel: 'APPOINTMENT',
       tabBarIcon: ({ tintColor }) => (
         <Icon name="ios-paper" color={tintColor} size={24} />
@@ -47,6 +50,7 @@ export default createBottomTabNavigator({
   Profile: {
     screen:Profile,
     navigationOptions: {
+      title: `Profile`,
       tabBarLabel: 'PROFILE',
       tabBarIcon: ({ tintColor }) => (
         <Icon name="ios-person" color={tintColor} size={24} />
@@ -66,7 +70,9 @@ export default createBottomTabNavigator({
       elevation: 5
     }
   }
-})
+});
+
+export default BottomTabNavigator;
 
 const styles = StyleSheet.create({
   Container: {

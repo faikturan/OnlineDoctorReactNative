@@ -2,6 +2,11 @@ import React, { Component } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 
 class Pharmacy extends Component {
+
+  // static navigationOptions = {
+  //   title: 'Pharmacy',
+  // };
+
   render() {
     return (
       <View style={styles.Container}>

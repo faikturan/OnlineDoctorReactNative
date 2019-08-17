@@ -18,6 +18,10 @@ const rootRef = firebase.database().ref();
 
 class Appointment extends Component {
 
+  // static navigationOptions = {
+  //   title: 'Appointment',
+  // };
+
   constructor(props) {
     super(props);
     this.state = {

@@ -8,11 +8,10 @@ const { height, width } = Dimensions.get('window');
 class Profile extends Component {
 
   // static navigationOptions = {
-  //   header: null
-  // }
+  //   title: 'Profile',
+  // };
 
   render() {
-
     return (
       <SafeAreaView style={{ flex: 1 }}>
           <View style={{ flex: 8/9, backgroundColor: '#92DFF3' }}>
@@ -24,7 +23,8 @@ class Profile extends Component {
           <View style={{ flex: 1/9, backgroundColor: 'white'}}>
           <TouchableOpacity
           style={styles.customBtnBG}
-          onPress = {() => firebase.auth().signOut()} 
+          onPress = {() => firebase.auth().signOut()}
+          onPress={() => this.props.navigation.navigate('Login')}
           >
             <Text style={styles.customBtnText}>Sign Out</Text>
           </TouchableOpacity>
