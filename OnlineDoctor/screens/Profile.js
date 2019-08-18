@@ -19,6 +19,10 @@ class Profile extends Component {
               title="Account"
               onPress={() => this.props.navigation.navigate('Account')}
             />
+            <Button
+              title="Sign up"
+              onPress={() => this.props.navigation.navigate('BasicInfo')}
+            />
           </View>
           <View style={{ flex: 1/9, backgroundColor: 'white'}}>
           <TouchableOpacity

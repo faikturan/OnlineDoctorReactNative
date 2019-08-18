@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, TextInput } from 'react-native';
+import { View, Text, StyleSheet, Dimensions } from 'react-native';
+import { Container, Content, Form, Item, Picker, Label, Input } from 'native-base';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 
 import FirebaseConfig from '../../FirebaseConfig';
@@ -9,6 +11,8 @@ import { SafeAreaView } from 'react-navigation';
 if (!firebase.apps.length) {
     firebase.initializeApp(FirebaseConfig);
 };
+
+const { width: WIDTH } = Dimensions.get('window')
 
 export default class BasicInfo extends Component{
 
@@ -22,28 +26,75 @@ export default class BasicInfo extends Component{
         }
     }
 
+    onValueChange1(value: string) {
+        this.setState({
+            firstname: value
+        });
+    }
+
+    onValueChange2(value: string) {
+        this.setState({
+            lastname: value
+        });
+    }
+
+    onValueChange3(value: string) {
+        this.setState({
+            phone: value
+        });
+    }
+
+    onValueChange4(value: string) {
+        this.setState({
+            gender: value
+        });
+    }
+
     componentDidMount(){
 
     }
     render() {
         return(
-            <SafeAreaView style={styles.Container}>
-                <Text>
-                    Please tell us some basic info to complete your profile
-                </Text>
-                <TextInput
-                    placeholder= 'First Name'
-                    onChangeText={(text) => this.setState({firstname : text})}
-                />
-                <TextInput
-                    placeholder= 'Last Name'
-                    onChangeText={(text) => this.setState({firstname : text})}
-                />
-                <TextInput
-                    placeholder= 'Phone Number'
-                    onChangeText={(text) => this.setState({firstname : text})}
-                />
-            </SafeAreaView>
+            <Container>
+                <Content>
+                    <Form>
+                        <Item floatingLabel>
+                            <Label>First Name</Label>
+                            <Input 
+                                onValueChange={this.onValueChange1.bind(this)}
+                            />
+                        </Item>
+                        <Item floatingLabel last>
+                            <Label>Last Name</Label>
+                            <Input
+                             onValueChange={this.onValueChange2.bind(this)}
+                            />
+                        </Item>
+                        <Item floatingLabel last>
+                            <Label>Phone Number</Label>
+                            <Input
+                             onValueChange={this.onValueChange3.bind(this)}
+                            />
+                        </Item>
+                        <Item picker>
+                            <Picker
+                            mode="dropdown"
+                            iosIcon={<Icon name="arrow-down" />}
+                            style={{ width: WIDTH }}
+                            placeholder="Gender"
+                            placeholderStyle={{ color: "#bfc6ea" }}
+                            placeholderIconColor="#007aff"
+                            selectedValue={this.state.gender}
+                            onValueChange={this.onValueChange4.bind(this)}
+                            >
+                            <Picker.Item label="Male" value="key0" />
+                            <Picker.Item label="Female" value="key1" />
+                            <Picker.Item label="Other" value="key2" />
+                            </Picker>
+                        </Item>
+                    </Form>
+                </Content>
+            </Container>  
         )
     }
 }

@@ -5,7 +5,6 @@
 	};
 	objectVersion = 46;
 	objects = {
-
 /* Begin PBXBuildFile section */
 		00E356F31AD99517003FC87E /* OnlineDoctorTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* OnlineDoctorTests.m */; };
 		056D8D27D8894990885CF03F /* FontAwesome5_Brands.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C289AEC2895B42F9B979A95C /* FontAwesome5_Brands.ttf */; };

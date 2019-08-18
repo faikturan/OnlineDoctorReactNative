@@ -134,6 +134,7 @@ export default class Account extends Component {
               placeholder={'Username'}
               value={this.state.username}
               onChangeText={(text) => this.setState({username : text})}
+              
             /> 
             <TextField
               label='Firstname'
