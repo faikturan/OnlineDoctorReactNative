@@ -14,13 +14,13 @@ export default class SignUp extends React.Component {
         firebase
         .auth()
         .createUserWithEmailAndPassword(this.state.email, this.state.password)
-        .then(() => this.props.navigation.navigate('Dashboard'))
+        .then(() => this.props.navigation.navigate('BasicInfo'))
         .catch(error => this.setState({ errorMessage: error.message }))
     }
     
     render() {
         return (
-        <View style={styles.container}>
+          <View style={styles.container}>
             <Text>Sign Up</Text>
             {this.state.errorMessage &&
             <Text style={{ color: 'red' }}>
@@ -46,7 +46,7 @@ export default class SignUp extends React.Component {
             title="Already have an account? Login"
             onPress={() => this.props.navigation.navigate('Login')}
             />
-        </View>
+          </View>
         )
   }
 }

@@ -16,6 +16,7 @@ import DoctorList from './screens/components/Appointment/DoctorList';
 import DoctorDetail from './screens/components/Appointment/DoctorDetail';
 import Confirm from './screens/components/Appointment/Confirm';
 import AppointmentDetail from './screens/components/Appointment/AppointmentDetail';
+import BasicInfo from './screens/components/Signup/BasicInfo';
 import FirebaseConfig from './screens/FirebaseConfig';
 import firebase from 'firebase';
 
@@ -126,6 +127,12 @@ const MainNavigator = createStackNavigator({
         title: `Appointment Detail`,
       }), 
     },
+    BasicInfo : {
+      screen: BasicInfo,
+      navigationOptions: () => ({
+        title: `Basic Info`,
+      }), 
+    }
 });
   
 const Route = createAppContainer(MainNavigator);
