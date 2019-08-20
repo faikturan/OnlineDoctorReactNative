@@ -39,8 +39,6 @@ export default class MakeAppointment extends Component {
                 patient_firstname : child.val().firstname,
                 patient_lastname : child.val().lastname,
             })
-            console.log(this.state.patient_firstname);
-            console.log(this.state.patient_lastname);
         });
         }).catch((error) => {
         console.log(error);
@@ -56,26 +54,31 @@ export default class MakeAppointment extends Component {
     handleConfirm = () => {
         var patient_email = firebase.auth().currentUser.email;
         var root = firebase.database().ref();
-        var first_name = this.state.provider_firstname;
-        var last_name = this.state.provider_lastname;
-        var name = first_name+last_name;
+        var first_name = this.state.patient_firstname;
+        var last_name = this.state.patient_lastname;
+        var name = first_name.toLowerCase()+last_name.toLowerCase();
         var date_selected = this.state.date;
         var slot_selected = this.state.time;
-        console.log('Appointment/' + name + '/' + date_selected);
-        var query = firebase.database().ref('Appointment/' + name + '/' + date_selected);
+        console.log('123123123: ' + 'Appointment/yuyangchen/' + date_selected);
+        var query = firebase.database().ref('Appointment/yuyangchen/' + date_selected);
         query.update({
-            patient_firstname : this.state.patient_firstname,
-            patient_lastname : this.state.patient_lastname,
+            patient_firstname : 'Yuyang',
+            patient_lastname : 'Chen',
             patient_email : patient_email,
+            provider_firstname: 'Emma',
+            provider_lastname: 'Jefferson',
             date : this.state.date,
             timeslot : this.state.time,
             status: this.state.status
           }).then(() => {
           alert('Appointment booking successfully!');
         }).catch(error => this.setState({errorMessage : error.message}));
+        this.props.navigation.navigate('Appointment');
     }
 
     render() {
+        console.log('444: ' + this.state.patient_firstname);
+        console.log('555: ' + this.state.patient_lastname);
         return (
             <SafeAreaView style={{ flex:1 }}>
                 <View style={{ flex:1 }}>

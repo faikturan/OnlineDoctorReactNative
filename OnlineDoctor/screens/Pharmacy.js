@@ -11,7 +11,7 @@ class Pharmacy extends Component {
   render() {
     return (
       <View style={styles.Container}>
-        <MapView
+        {/* <MapView
           style={styles.Map} 
           region={{
             latitude : 59.00000,
@@ -20,7 +20,7 @@ class Pharmacy extends Component {
             longitudeDelta: 0.1,
           }}
         >
-        </MapView>
+        </MapView> */}
       </View>
     )
   }
