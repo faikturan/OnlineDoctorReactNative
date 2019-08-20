@@ -64,13 +64,13 @@ export default class BasicInfo extends Component{
                                 onValueChange={this.onValueChange1.bind(this)}
                             />
                         </Item>
-                        <Item floatingLabel last>
+                        <Item floatingLabel>
                             <Label>Last Name</Label>
                             <Input
                              onValueChange={this.onValueChange2.bind(this)}
                             />
                         </Item>
-                        <Item floatingLabel last>
+                        <Item floatingLabel>
                             <Label>Phone Number</Label>
                             <Input
                              onValueChange={this.onValueChange3.bind(this)}

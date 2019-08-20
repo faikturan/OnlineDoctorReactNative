@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
+import MapView from 'react-native-maps';
 
 class Pharmacy extends Component {
 
@@ -10,7 +11,16 @@ class Pharmacy extends Component {
   render() {
     return (
       <View style={styles.Container}>
-        <Text>Pharmacy</Text>
+        <MapView
+          style={styles.Map} 
+          region={{
+            latitude : 59.00000,
+            longitude: 18.00000,
+            latitudeDelta: 0.1,
+            longitudeDelta: 0.1,
+          }}
+        >
+        </MapView>
       </View>
     )
   }
@@ -24,5 +34,8 @@ const styles = StyleSheet.create({
       alignItems: 'center',
       justifyContent: 'center',
     },
+    Map : {
+
+    }
   });
   
