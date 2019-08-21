@@ -4,18 +4,40 @@ import MapView from 'react-native-maps';
 
 class Pharmacy extends Component {
 
-  // static navigationOptions = {
-  //   title: 'Pharmacy',
-  // };
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      latitude: null,
+      longitude: null,
+      error:null,
+    };
+  }
+
+  componentDidMount() {
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        this.setState({
+          latitude: position.coords.latitude,
+          longitude: position.coords.longitude,
+          error: null,
+        }); 
+      },
+      (error) => this.setState({ error: error.message }),
+      { enableHighAccuracy: false, timeout: 200000, maximumAge: 1000 },
+    );
+  }
 
   render() {
+    console.log('123: ' + this.state.latitude);
     return (
       <MapView
+        style={styles.map}
         initialRegion={{
-          latitude: 37.78825,
-          longitude: -122.4324,
-          latitudeDelta: 0.0922,
-          longitudeDelta: 0.0421,
+          latitude: this.state.latitude,
+          longitude: this.state.longitude,
+          latitudeDelta: 1,
+          longitudeDelta: 1,
         }}
       />
     )
@@ -30,8 +52,8 @@ const styles = StyleSheet.create({
       alignItems: 'center',
       justifyContent: 'center',
     },
-    Map : {
-
-    }
+    map: {
+      flex:1
+    },
   });
   
