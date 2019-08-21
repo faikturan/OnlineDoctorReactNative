@@ -3,7 +3,7 @@ import { StyleSheet, Text, View, Button, Dimensions, ScrollView, FlatList, Touch
 import { SafeAreaView } from 'react-navigation';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { ListItem } from 'react-native-elements';
-import FirebaseConfig from '../../FirebaseConfig';
+import FirebaseConfig from '../FirebaseConfig';
 import firebase from 'firebase';
 
 if (!firebase.apps.length) {
@@ -44,28 +44,6 @@ export default class DoctorDetail extends Component {
         };
     }
 
-    // getData = () => {
-    //     this.setState = {
-    //         firstname : this.props.navigation.state.params.data.firstname,
-    //         lastname : this.props.navigation.state.params.data.lastname,
-    //         mi : this.props.navigation.state.params.data.mi,
-    //         gender : this.props.navigation.state.params.data.gender,
-    //         title : this.props.navigation.state.params.data.title,
-    //         background1 : this.props.navigation.state.params.data.background1,
-    //         background2 : this.props.navigation.state.params.data.background2,
-    //         background3 : this.props.navigation.state.params.data.background3,
-    //         email : this.props.navigation.state.params.data.email,
-    //         language : this.props.navigation.state.params.data.language,
-    //         specialty : this.props.navigation.state.params.data.specialty,
-    //         address1 : this.props.navigation.state.params.data.address1,
-    //         address2 : this.props.navigation.state.params.data.address2,
-    //         city : this.props.navigation.state.params.data.city,
-    //         state : this.props.navigation.state.params.data.state,
-    //         zipcode : this.props.navigation.state.params.data.zipcode,
-    //         provider : this.props.navigation.state.params.data.provider,
-    //     };
-    // }
-
     componentDidMount() {
         this.setState ({
             firstname : this.props.navigation.state.params.data.firstname,
@@ -101,7 +79,7 @@ export default class DoctorDetail extends Component {
 
     renderItem = ({ item }) => (
         <TouchableOpacity onPress={() => this.props.navigation.navigate('MakeAppointment', { fn: this.state.firstname, ln: this.state.lastname } )}> 
-            <ListItem style={{flex:1, height:100}}
+            <ListItem
                 title={ 'Check Availability' }
                 titleStyle={{ color: 'black', fontWeight: 'bold', fontSize: 30, textAlign: "center" }}
                 chevronColor="black"
@@ -155,7 +133,7 @@ export default class DoctorDetail extends Component {
                         </View>
                     </ScrollView>
                 </ScrollView>
-                <View style={styles.bottom}>
+                <View style={styles.bottomView}>
                     <FlatList
                         keyExtractor={this.keyExtractor}
                         data={this.state.timeslot}
@@ -245,20 +223,18 @@ const styles = StyleSheet.create({
         marginHorizontal: 10,
         color: 'black'
     },
-    bottom: {
-        flex: 1,
-        justifyContent: 'flex-end',
-        marginBottom: 12,
-        borderTopWidth : 2,
-        borderBottomWidth : 2,
-        borderEndWidth : 2,
-        borderLeftWidth : 2,
-        borderRightWidth : 2
-    },
     customBtnBG: {
         backgroundColor: "#fff",
         paddingHorizontal: 30,
         paddingVertical: 10,
         borderRadius: 30
-    }
+    },
+    bottomView:{
+        width: '100%', 
+        height: 50, 
+        backgroundColor: '#FFFFFF', 
+        justifyContent: 'center', 
+        position: 'absolute',
+        bottom: 25
+      },
 })

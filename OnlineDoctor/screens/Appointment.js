@@ -188,7 +188,6 @@ const styles = StyleSheet.create({
       justifyContent: 'space-between',
       alignItems: 'center', 
       elevation: 1, 
-      marginTop: Platform.OS == 'android' ? 30 : null
     },
     homeText: {
         fontSize: 22, 

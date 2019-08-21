@@ -3,7 +3,7 @@ import { StyleSheet, Text, View, Button, Label, InputAccessoryView, Item, TextIn
 import { SafeAreaView } from 'react-navigation';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { TextField } from 'react-native-material-textfield';
-import FirebaseConfig from '../../FirebaseConfig';
+import FirebaseConfig from '../FirebaseConfig';
 import firebase from 'firebase';
 
 

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { View, Text, Dimensions, SafeAreaView, StyleSheet } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
-import FirebaseConfig from '../../FirebaseConfig';
+import FirebaseConfig from '../FirebaseConfig';
 import firebase from 'firebase';
 
 const { width, height } = Dimensions.get('window')

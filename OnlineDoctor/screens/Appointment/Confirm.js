@@ -3,7 +3,7 @@ import { StyleSheet, Text, View, Button, Dimensions, ScrollView, FlatList, Touch
 import { SafeAreaView } from 'react-navigation';
 import Iconn from 'react-native-vector-icons/AntDesign';
 import Icon from 'react-native-vector-icons/Ionicons';
-import FirebaseConfig from '../../FirebaseConfig';
+import FirebaseConfig from '../FirebaseConfig';
 import firebase from 'firebase';
 
 if (!firebase.apps.length) {

@@ -4,7 +4,7 @@ import { Container, Content, Form, Item, Picker, Label, Input } from 'native-bas
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 
-import FirebaseConfig from '../../FirebaseConfig';
+import FirebaseConfig from '../FirebaseConfig';
 import firebase from 'firebase';
 import { SafeAreaView } from 'react-navigation';
 

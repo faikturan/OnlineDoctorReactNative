@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { StyleSheet, Text, View, SafeAreaView, ScrollView, Platform, StatusBar, Dimensions } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons'
 
-import Category from './components/Home/Category';
+import Category from './Home/Category';
 
 const { width } = Dimensions.get('window');
 

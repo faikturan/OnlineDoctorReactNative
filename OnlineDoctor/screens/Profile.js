@@ -1,37 +1,96 @@
 import React, { Component } from 'react';
 import { StyleSheet, Text, View, SafeAreaView, Dimensions, Button, TouchableOpacity } from 'react-native';
-import Icon from 'react-native-vector-icons/Ionicons';
 import firebase from 'firebase';
+import { ListItem } from 'react-native-elements'
 
 const { height, width } = Dimensions.get('window');
 
+const list = [
+  {
+    title: 'Account',
+    name: 'Account',
+    icon: 'person'
+  },
+  {
+    title: 'Call History',
+    name: 'CallHistory',
+    icon: 'call'
+  },
+  {
+    title: 'Family Member',
+    name: 'FamilyMember',
+    icon: 'people'
+  },
+  {
+    title: 'Lab Report',
+    name: 'LabReport',
+    icon: 'note'
+  },
+  {
+    title: 'Medication',
+    name: 'Medication',
+    icon: 'pills'
+  },
+  {
+    title: 'Monitor',
+    name: 'Monitor',
+    icon: 'tv'
+  },
+  {
+    title: 'Payment',
+    name: 'Payment',
+    icon: 'payment'
+  },
+  {
+    title: 'Vaccination',
+    name: 'Vaccination',
+    icon: 'colorize'
+  },
+  {
+    title: 'Referral',
+    name: 'Referral',
+    icon: 'people'
+  },
+]
+
 class Profile extends Component {
 
-  // static navigationOptions = {
-  //   title: 'Profile',
-  // };
+  checkIfLoggedIn = () => {
+    firebase.auth().onAuthStateChanged(
+        function(user){
+            if(user)
+            {
+                this.props.navigation.navigate('BottomTabNavigator');
+            } else {
+                this.props.navigation.navigate('Login');
+            }
+        }.bind(this)
+    );
+  }
+
+  componentDidMount() {
+    this.checkIfLoggedIn();
+  }
 
   render() {
     return (
       <SafeAreaView style={{ flex: 1 }}>
-          <View style={{ flex: 8/9, backgroundColor: '#92DFF3' }}>
+          {
+            list.map((item, i) => (
+              <ListItem
+                key={i}
+                title={item.title}
+                leftIcon={{ name: item.icon }}
+                chevron
+                onPress={() => this.props.navigation.navigate( item.name )}
+              />
+            ))
+          }
+          <View style={ styles.bottomView} >
             <Button
-              title="Account"
-              onPress={() => this.props.navigation.navigate('Account')}
+              title='Sign out'
+              onPress={() => firebase.auth().signOut()} 
             />
-            <Button
-              title="Sign up"
-              onPress={() => this.props.navigation.navigate('BasicInfo')}
-            />
-          </View>
-          <View style={{ flex: 1/9, backgroundColor: 'white'}}>
-          <TouchableOpacity
-          style={styles.customBtnBG}
-          onPress = {() => firebase.auth().signOut()}
-          onPress={() => this.props.navigation.navigate('Login')}
-          >
-            <Text style={styles.customBtnText}>Sign Out</Text>
-          </TouchableOpacity>
           </View>
       </SafeAreaView>
     )
@@ -47,35 +106,14 @@ const styles = StyleSheet.create({
       alignItems: 'center',
       justifyContent: 'center',
     },
-    header: {
-      flexDirection: 'row', 
-      padding: 10, 
-      marginHorizontal: 10, 
-      justifyContent: 'space-between',
-      alignItems: 'center', 
-      elevation: 1, 
-      marginTop: Platform.OS == 'android' ? 30 : null
+    bottomView:{
+      width: '100%', 
+      height: 50, 
+      backgroundColor: '#87CEFA', 
+      justifyContent: 'center', 
+      alignItems: 'center',
+      position: 'absolute',
+      bottom: 0
     },
-    homeText: {
-        fontSize: 22, 
-        fontWeight: '500', 
-        width: '60%', 
-        justifyContent: 'space-between'
-    },
-    /* Here style the text of your button */
-    customBtnText: {
-      fontSize: 35,
-      fontWeight: '700',
-      color: "black",
-      textAlign: 'center'
-    },
-
-    /* Here style the background of your button */
-    customBtnBG: {
-    backgroundColor: "#fff",
-    paddingHorizontal: 30,
-    paddingVertical: 10,
-    borderRadius: 30
-    }
   });
   

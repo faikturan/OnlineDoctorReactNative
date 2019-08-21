@@ -14,22 +14,21 @@ class Pharmacy extends Component {
     };
   }
 
-  componentDidMount() {
-    navigator.geolocation.getCurrentPosition(
-      (position) => {
-        this.setState({
-          latitude: position.coords.latitude,
-          longitude: position.coords.longitude,
-          error: null,
-        }); 
-      },
-      (error) => this.setState({ error: error.message }),
-      { enableHighAccuracy: false, timeout: 200000, maximumAge: 1000 },
-    );
-  }
+  // componentDidMount() {
+  //   navigator.geolocation.getCurrentPosition(
+  //     (position) => {
+  //       this.setState({
+  //         latitude: position.coords.latitude,
+  //         longitude: position.coords.longitude,
+  //         error: null,
+  //       }); 
+  //     },
+  //     (error) => this.setState({ error: error.message }),
+  //     { enableHighAccuracy: false, timeout: 200000, maximumAge: 1000 },
+  //   );
+  // }
 
   render() {
-    console.log('123: ' + this.state.latitude);
     return (
       <MapView
         style={styles.map}
