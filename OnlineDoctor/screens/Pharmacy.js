@@ -10,18 +10,14 @@ class Pharmacy extends Component {
 
   render() {
     return (
-      <View style={styles.Container}>
-        {/* <MapView
-          style={styles.Map} 
-          region={{
-            latitude : 59.00000,
-            longitude: 18.00000,
-            latitudeDelta: 0.1,
-            longitudeDelta: 0.1,
-          }}
-        >
-        </MapView> */}
-      </View>
+      <MapView
+        initialRegion={{
+          latitude: 37.78825,
+          longitude: -122.4324,
+          latitudeDelta: 0.0922,
+          longitudeDelta: 0.0421,
+        }}
+      />
     )
   }
 }
