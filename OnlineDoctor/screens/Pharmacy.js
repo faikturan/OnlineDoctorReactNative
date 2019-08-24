@@ -33,7 +33,7 @@ class Pharmacy extends Component {
   }
 
   getPlaces(){
-    const url = this.getUrlWithParameters(this.state.lat, this.state.long, 1500, 'pharmacy', 'AIzaSyDxTBLrmNG5wFleo5sWk8PGK4uHrEIIvCs');
+    const url = this.getUrlWithParameters(this.state.lat, this.state.long, 5000, 'pharmacy', 'AIzaSyDxTBLrmNG5wFleo5sWk8PGK4uHrEIIvCs');
     console.log('123: ' + url);
     fetch(url)
       .then((data) => data.json())
