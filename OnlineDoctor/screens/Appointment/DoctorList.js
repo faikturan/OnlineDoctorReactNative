@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import { StyleSheet, Text, View, Button, Dimensions, ScrollView, FlatList, TouchableOpacity } from 'react-native';
 import { SafeAreaView } from 'react-navigation';
 import Icon from 'react-native-vector-icons/Ionicons';
-import { ListItem } from 'react-native-elements';
+import Iconnn from 'react-native-vector-icons/FontAwesome';
+import { Card, CardItem, Left, Thumbnail, Title, Subtitle, Right } from 'native-base';
 import FirebaseConfig from '../FirebaseConfig';
 import firebase from 'firebase';
 
@@ -58,7 +59,7 @@ export default class DoctorList extends Component {
 
     renderItem = ({ item }) => (
         <TouchableOpacity onPress={() => this.props.navigation.navigate('DoctorDetail', { data: item } )}> 
-            <ListItem style={{flex:1, height:100}}
+            {/* <ListItem style={{flex:1, height:100}}
                 leftAvatar={{ rounded: true, source: { uri: item.image }}}
                 title={ item.title + ' ' + item.firstname + ' ' + item.lastname }
                 subtitle= { item.specialty }
@@ -66,14 +67,33 @@ export default class DoctorList extends Component {
                 titleStyle={{ color: 'black', fontWeight: 'bold', fontSize: 30 }}
                 chevronColor="black"
                 chevron
-            />
+            /> */}
+            <Card>
+                <CardItem>
+                    <Left>
+                    <Thumbnail
+                        source={{uri : item.image}}
+                        style={{ width:100, height:80, borderRadius:10, marginRight:5}}
+                    />
+                    <View style={{ alignItems:'flex-start'}}>
+                        <Title style={{padding :5}}>{item.firstname} {item.lastname}</Title>
+                        <Title style={{padding :5, paddingTop : 15}}>{item.specialty}</Title>
+                        <Title style={{padding :5}}>{item.provider}</Title>
+                        <Subtitle style={{padding :5}}>{item.language}</Subtitle>
+                    </View>
+                    </Left>
+                    <Right>
+                    <Iconnn name="chevron-right" size={20} style={styles.moreIcon} />
+                    </Right>
+                </CardItem>
+            </Card>
         </TouchableOpacity>
     )
 
     render() {
         return (
             <SafeAreaView style={{ flex:1 }}>
-                <View style={{ flex:1 }}>
+                <View style={ styles.ListViewContainer }>
                     <FlatList
                         keyExtractor={this.keyExtractor}
                         data={this.state.arrData}
@@ -92,5 +112,10 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         width : width
+    },
+    ListViewContainer: {
+        flex:1, 
+        width: width, 
+        padding:20
     }
 })
