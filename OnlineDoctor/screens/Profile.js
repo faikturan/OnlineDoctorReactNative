@@ -88,7 +88,7 @@ class Profile extends Component {
           }
           <View style={ styles.bottomView} >
             <Button
-              title='Sign out'
+              title='Log out'
               onPress={() => firebase.auth().signOut()} 
             />
           </View>

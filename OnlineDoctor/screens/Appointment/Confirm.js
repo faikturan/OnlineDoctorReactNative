@@ -11,7 +11,7 @@ if (!firebase.apps.length) {
 };
 
 const rootRef = firebase.database().ref();
-const accountRef = rootRef.child('Appointment');
+const accountRef = rootRef.child('AccountProfile');
 
 const { width } = Dimensions.get('window');
 
@@ -22,11 +22,14 @@ export default class MakeAppointment extends Component {
         this.state = {
             patient_firstname : '',
             patient_lastname : '',
-            provider_firstname : '',
+            provider_firstname: '',
             provider_lastname : '',
+            provider_firstname_lc : '',
+            provider_lastname_lc : '',
             date : '',
             time : '',
-            status: 'confirmed'
+            status: 'confirmed',
+            image : ''
         };
     }
 
@@ -44,10 +47,12 @@ export default class MakeAppointment extends Component {
         console.log(error);
         });
         this.setState ({
-            provider_firstname : this.props.navigation.state.params.data.firstname,
-            provider_lastname : this.props.navigation.state.params.data.lastname,
+            provider_firstname_lc : this.props.navigation.state.params.data.firstname,
+            provider_lastname_lc : this.props.navigation.state.params.data.lastname,
             date : this.props.navigation.state.params.data.date,
             time : this.props.navigation.state.params.data.slot,
+            provider_firstname : this.state.provider_firstname_lc.charAt(0).toUpperCase() + this.state.provider_firstname_lc.slice(1),
+            provider_lastname : this.state.provider_lastname_lc.charAt(0).toUpperCase() + this.state.provider_lastname_lc.slice(1)
         });
     }
 
@@ -59,14 +64,13 @@ export default class MakeAppointment extends Component {
         var name = first_name.toLowerCase()+last_name.toLowerCase();
         var date_selected = this.state.date;
         var slot_selected = this.state.time;
-        console.log('123123123: ' + 'Appointment/yuyangchen/' + date_selected);
         var query = firebase.database().ref('Appointment/yuyangchen/' + date_selected);
         query.update({
-            patient_firstname : 'Yuyang',
-            patient_lastname : 'Chen',
+            patient_firstname : this.state.patient_firstname,
+            patient_lastname : this.state.patient_lastname,
             patient_email : patient_email,
-            provider_firstname: 'Emma',
-            provider_lastname: 'Jefferson',
+            provider_firstname: this.state.provider_firstname_lc.charAt(0).toUpperCase() + this.state.provider_firstname_lc.slice(1),
+            provider_lastname: this.state.provider_lastname_lc.charAt(0).toUpperCase() + this.state.provider_lastname_lc.slice(1),
             date : this.state.date,
             timeslot : this.state.time,
             status: this.state.status
@@ -77,15 +81,13 @@ export default class MakeAppointment extends Component {
     }
 
     render() {
-        console.log('444: ' + this.state.patient_firstname);
-        console.log('555: ' + this.state.patient_lastname);
         return (
             <SafeAreaView style={{ flex:1 }}>
                 <View style={{ flex:1 }}>
                     <ScrollView scrollEventThrottle={16}>
                         <ScrollView vertical={true}
                         showsVerticalScrollIndicator={true}>
-                            <Text>Thank you very much Mr/Mrs. {this.state.patient_firstname} {this.state.patient_lastname} for booking Appointment for Dr. {this.state.provider_firstname} {this.state.provider_lastname} on {this.state.date} at {this.state.time}</Text>
+                            <Text>Thank you very much Mr/Mrs. {this.state.patient_firstname} {this.state.patient_lastname} for booking Appointment for Dr. {this.state.provider_firstname_lc.charAt(0).toUpperCase() + this.state.provider_firstname_lc.slice(1)} {this.state.provider_lastname_lc.charAt(0).toUpperCase() + this.state.provider_lastname_lc.slice(1)} on {this.state.date} at {this.state.time}</Text>
                             <Button title= "Confirm" onPress={this.handleConfirm} />
                         </ScrollView>
                     </ScrollView>

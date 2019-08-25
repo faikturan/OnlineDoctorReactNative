@@ -68,7 +68,7 @@ export default class DoctorDetail extends Component {
         var array = [];
         array.push({
             fn : this.props.navigation.state.params.data.firstname,
-            ln : this.props.navigation.state.params.data.lastname
+            ln : this.props.navigation.state.params.data.lastname,
         });
         this.setState ({
             timeslot : array
