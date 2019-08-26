@@ -59,15 +59,6 @@ export default class DoctorList extends Component {
 
     renderItem = ({ item }) => (
         <TouchableOpacity onPress={() => this.props.navigation.navigate('DoctorDetail', { data: item } )}> 
-            {/* <ListItem style={{flex:1, height:100}}
-                leftAvatar={{ rounded: true, source: { uri: item.image }}}
-                title={ item.title + ' ' + item.firstname + ' ' + item.lastname }
-                subtitle= { item.specialty }
-                subtitleStyle= {{fontSize: 20}}
-                titleStyle={{ color: 'black', fontWeight: 'bold', fontSize: 30 }}
-                chevronColor="black"
-                chevron
-            /> */}
             <Card>
                 <CardItem>
                     <Left>
