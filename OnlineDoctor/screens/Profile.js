@@ -51,6 +51,11 @@ const list = [
     name: 'Referral',
     icon: 'people'
   },
+  {
+    title: 'Basic Info',
+    name: 'BasicInfo',
+    icon: 'people'
+  }
 ]
 
 class Profile extends Component {

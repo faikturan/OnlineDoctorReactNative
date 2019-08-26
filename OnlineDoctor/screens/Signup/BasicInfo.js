@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
 import { View, Text, StyleSheet, Dimensions } from 'react-native';
-import { Container, Content, Form, Item, Picker, Label, Input } from 'native-base';
+import { Container, Content, Form, Item, Label, Input, Left, Right, Body, Segment, Button } from 'native-base';
 import Icon from 'react-native-vector-icons/FontAwesome';
-
-
 import FirebaseConfig from '../FirebaseConfig';
 import firebase from 'firebase';
 import { SafeAreaView } from 'react-navigation';
@@ -23,6 +21,7 @@ export default class BasicInfo extends Component{
             lastname:'',
             phone:'',
             gender:'',
+            genderSelected : 1
         }
     }
 
@@ -76,21 +75,30 @@ export default class BasicInfo extends Component{
                              onValueChange={this.onValueChange3.bind(this)}
                             />
                         </Item>
-                        <Item picker>
-                            <Picker
-                            mode="dropdown"
-                            iosIcon={<Icon name="arrow-down" />}
-                            style={{ width: WIDTH }}
-                            placeholder="Gender"
-                            placeholderStyle={{ color: "#bfc6ea" }}
-                            placeholderIconColor="#007aff"
-                            selectedValue={this.state.gender}
-                            onValueChange={this.onValueChange4.bind(this)}
-                            >
-                            <Picker.Item label="Male" value="key0" />
-                            <Picker.Item label="Female" value="key1" />
-                            <Picker.Item label="Other" value="key2" />
-                            </Picker>
+                        <Item>
+                            <Segment>
+                                <Button 
+                                    first active={this.state.genderSelected === 1} 
+                                    style={styles.segmentButton}
+                                    onPress={() => this.setState({ genderSelected: 1 })}
+                                >
+                                    <Text>Male</Text>
+                                </Button>
+                                <Button 
+                                    active={this.state.genderSelected === 2} 
+                                    style={styles.segmentButton}
+                                    onPress={() => this.setState({ genderSelected: 2 })}
+                                >
+                                    <Text>Female</Text>
+                                </Button>
+                                <Button 
+                                    last active={this.state.genderSelected === 3} 
+                                    style={styles.segmentButton}
+                                    onPress={() => this.setState({ genderSelected: 3 })}
+                                >
+                                    <Text>Others</Text>
+                                </Button>
+                            </Segment>
                         </Item>
                     </Form>
                 </Content>
@@ -106,4 +114,11 @@ const styles = StyleSheet.create({
       alignItems: 'center',
       justifyContent: 'center',
     },
+    segmentButton: {
+      paddingLeft: 0,
+      paddingRight: 0,
+      width: WIDTH/3,
+      alignItems: 'center',
+      justifyContent: 'center',
+    }
 })
