@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, Button, Dimensions, FlatList, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, Dimensions, FlatList, TouchableOpacity } from 'react-native';
 import { SafeAreaView } from 'react-navigation';
 import Icon from 'react-native-vector-icons/Ionicons';
 import Iconn from 'react-native-vector-icons/AntDesign';
 import Iconnn from 'react-native-vector-icons/FontAwesome';
 import FirebaseConfig from './FirebaseConfig';
 import firebase from 'firebase';
-import { Card, CardItem, Left, Thumbnail, Title, Subtitle, Right } from 'native-base';
+import { Card, CardItem, Thumbnail, Title, Subtitle, Container, Content, Form, Item, Label, Input, Left, Right, Body, Segment, Button } from 'native-base';
 
 const { width, height } = Dimensions.get('window')
 
@@ -32,14 +32,16 @@ class Appointment extends Component {
       user_firstname : '',
       user_lastname : '',
       username: '',
+      selected : 1
     }
   }
 
   upcomingListHideAndShow = () => {
-    this.setState(previousState => ({ 
+    this.setState({
       isUpcomingListVisible: true,
       isPastListVisible: false,
-    }));
+      selected : 1
+    });
     var query = rootRef.child('Appointment/'+ this.state.username.toLowerCase());
     query.once('value', (snapshot) => {
       var items = [];
@@ -60,10 +62,11 @@ class Appointment extends Component {
   };
 
   pastListHideAndShow = () => {
-    this.setState(previousState => ({ 
-      isPastListVisible: true, 
+    this.setState({
       isUpcomingListVisible: false,
-    }))
+      isPastListVisible: true,
+      selected : 2
+    });
   };
 
   componentDidMount() {
@@ -138,14 +141,22 @@ class Appointment extends Component {
         </View>
         <View style={styles.Container}>
           <View style={styles.buttonlayout}>
-            <Button style={styles.button}
-              title='Upcoming'
-              onPress={this.upcomingListHideAndShow}
-            />
-            <Button style={styles.button}
-              title='Past'
-              onPress={this.pastListHideAndShow}
-            />
+            <Segment>
+              <Button 
+                  first active={this.state.selected === 1} 
+                  style={styles.segmentButton}
+                  onPress={this.upcomingListHideAndShow}
+              >
+                  <Text>Upcoming</Text>
+              </Button>
+              <Button 
+                  last active={this.state.selected === 2} 
+                  style={styles.segmentButton}
+                  onPress={this.pastListHideAndShow}
+              >
+                  <Text>Past</Text>
+              </Button>
+            </Segment>
           </View>
           { this.state.isUpcomingListVisible ? 
             <View style={ styles.ListViewContainer } hide={this.state.isUpcomingListVisible}>
@@ -159,11 +170,7 @@ class Appointment extends Component {
           }
           { this.state.isPastListVisible ? 
             <View style={ styles.ListViewContainer } hide={this.state.isUpcomingListVisible}>
-              <FlatList
-                keyExtractor={this.keyExtractor}
-                data={this.state.arrData}
-                renderItem={this.renderItem}
-              />
+              <Text style={styles.Container}>Todo</Text>
             </View>
             : null
           }
@@ -208,6 +215,13 @@ const styles = StyleSheet.create({
       flex:1, 
       width: width, 
       padding:20
+    },
+    segmentButton: {
+      paddingLeft: 0,
+      paddingRight: 0,
+      width: width/3,
+      alignItems: 'center',
+      justifyContent: 'center',
     }
   });
   
