@@ -38,9 +38,9 @@ class Home extends Component {
                   <View style={{ height: 250, marginTop: 50, width: width - 20 }}>
                       <ScrollView horizontal={true}
                       showsHorizontalScrollIndicator={false}>
-                          <Category imageUri={require('../assets/home.jpg')}/>
-                          <Category imageUri={require('../assets/restaurant.jpg')}/>
-                          <Category imageUri={require('../assets/experiences.jpg')}/>
+                          <Category imageUri={require('../assets/1.jpg')}/>
+                          <Category imageUri={require('../assets/2.png')}/>
+                          <Category imageUri={require('../assets/3.png')}/>
                       </ScrollView>
                   </View>
               </ScrollView>
